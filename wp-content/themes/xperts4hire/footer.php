@@ -159,7 +159,7 @@
 
 </div>
 <!-- Wrapper / End -->
-
+<?php wp_footer(); ?>
 <script>
 // Snackbar for user status switcher
 $('#snackbar-user-status label').click(function() { 

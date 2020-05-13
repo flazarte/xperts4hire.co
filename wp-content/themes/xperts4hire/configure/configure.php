@@ -19,10 +19,8 @@
 
 	function _custom_theme_init_images_size()
 	{
-		//add_image_size( 'sidebar-image', 185, 185, true );
-		//add_image_size( 'post-list-row', 767, 555, true );
-		//add_image_size( 'post-list-col', 767, 946, true );
-		//add_image_size( 'homepage-hero', 1024, 400, true );
+		//add_image_size( '424x424', 424, 424, true );
+		add_image_size( 'featured-post-img', 600, 400 ,true);
 	}
 	add_action( 'init', '_custom_theme_init_images_size' );
 
@@ -34,6 +32,11 @@
 	 */
 	add_theme_support( 'title-tag' );
 
+	// Giving credits
+	function remove_footer_admin () {
+		echo 'Thème crée par <a href="http://www.olivier-guilleux.com" target="_blank">Olivier Guilleux</a>';
+	}
+	add_filter('admin_footer_text', 'remove_footer_admin');
 
 	// Move Yoast to bottom
 	function yoasttobottom() {
@@ -41,6 +44,18 @@
 	}
 	add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
 
+	// Remove WP Emoji
+	remove_action('wp_head', 'print_emoji_detection_script', 7);
+	remove_action('wp_print_styles', 'print_emoji_styles');
+
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+
+	// delete wp-embed.js from footer
+	function my_deregister_scripts(){
+		wp_deregister_script( 'wp-embed' );
+	}
+	add_action( 'wp_footer', 'my_deregister_scripts' );
 
 	// delete jquery migrate
 	function dequeue_jquery_migrate( &$scripts){
@@ -96,75 +111,6 @@
 	add_action( 'widgets_init', 'my_custom_sidebar' );
 
 
-
-	// reduce excerpt length
-	add_filter( 'excerpt_length', function($length) {
-		return 20;
-	} );
-
-	// change ellipsis style in the excerpt
-	function new_excerpt_more($more) {
-		return '...';
-	}
-	add_filter('excerpt_more', 'new_excerpt_more');
-
-	function is_subcategory (){
-		$cat = get_query_var('cat');
-		$category = get_category($cat);
-		$category->parent;
-		return ( $category->parent == '1' ) ? false : true;
-	}
-
-	function get_primary_cat($postId){
-        $perma_cat = get_post_meta($postId , '_category_permalink', true);
-        if ( $perma_cat != null ) {
-          $cat_id = $perma_cat['category'];
-          $category = get_category($cat_id);
-        } else {
-          $categories = get_the_category();
-          $category = $categories[0];
-        }
-        $category_link = get_category_link($category);
-		$category_name = $category->name; 
-		$category_id = $category->term_id;  
-
-        $cat_info = array('link' => $category_link, 'name' => $category_name, 'id' => $category_id);
-        return $cat_info;
-    }
-
-    // Register the sidebar
-	add_action('widgets_init', 'post_menu_register_sidebar');
-	function post_menu_register_sidebar(){
-		register_sidebar(
-		    array(
-		      	'id'            => 'category-sidebar',
-				'name'          => __('Category Sidebar'),
-				'description'   => __('This sidebar will be shown on category pages exclusively'),
-				'before_widget' => '<div id="%1$s" class="widget %2$s">',
-				'after_widget'  => '</div>',
-				'before_title'  => '<h2 class="widget-title">',
-				'after_title'   => '</h2>',
-		    )
-	  	);
-	}
-
-	// Register the Category Custom Menu
-	add_action('widgets_init', 'post_menu_register_sidebar2');
-	function post_menu_register_sidebar2(){
-		register_sidebar(
-		    array(
-		      	'id'            => 'category-custom-menu',
-				'name'          => __('Category Custom Menu'),
-				'description'   => __('This sidebar will be shown on category pages exclusively'),
-				'before_widget' => '<div id="%1$s" class="widget %2$s">',
-				'after_widget'  => '</div>',
-				'before_title'  => '<h2 class="widget-title">',
-				'after_title'   => '</h2>',
-		    )
-	  	);
-	}
-
-
-	
-
+	// remove w3 total cache footer
+	add_filter( 'w3tc_can_print_comment', '__return_false', 10, 1 );
 	
