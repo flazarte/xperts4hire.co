@@ -161,8 +161,10 @@
 <!-- Sign In Popup
 ================================================== -->
 <?php
-$footer =  _loginPopUp(); 
+$footer =  _loginPopUp();
+$offer = _make_offer(); 
 echo $footer;
+echo $offer;
 ?>
 <!-- Sign In Popup / End -->
 <!-- Wrapper / End -->

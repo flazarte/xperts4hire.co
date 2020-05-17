@@ -1,10 +1,11 @@
 <?php 
 $args = [
-	'post_type'   => 'jobpost',
+    'post_type'      => 'jobpost',
+    'posts_per_page' => 5,
 ];
 $job_post = get_posts($args);
 ?>
-
+<?php if(count($job_post) > 0) : ?>
 <div class="section gray margin-top-45 padding-top-65 padding-bottom-75">
 	<div class="container">
 		<div class="row">
@@ -20,10 +21,10 @@ $job_post = get_posts($args);
 				<div class="listings-container compact-list-layout margin-top-35">
                     <?php
                     foreach($job_post as $key => $job):
-                        $job_type = sjb_get_the_job_type($job->ID);
-                        $job_location = sjb_get_the_job_location($job->ID);
-                        $company = sjb_get_the_company_name($job->ID);
-                        $job_posting_time = sjb_get_the_job_posting_time($job->ID);
+                        $job_type         = sjb_get_the_job_type($job->ID);
+                        $job_location     = sjb_get_the_job_location($job->ID);
+                        $company          = sjb_get_the_company_name($job->ID);
+                        $job_posting_time = get_post_time('j F Y','true',$job->ID,'false');
                     ?>				
 					<!-- Job Listing -->
 					<a href="single-job-page.html" class="job-listing with-apply-button">
@@ -46,7 +47,7 @@ $job_post = get_posts($args);
 										<li><i class="icon-material-outline-business"></i><?php echo $company;?><div class="verified-badge" title="Verified Employer" data-tippy-placement="top"></div></li>
 										<li><i class="icon-material-outline-location-on"></i><?php echo $job_location[0]->name;?></li>
 										<li><i class="icon-material-outline-business-center"></i><?php echo $job_type[0]->name;?></li>
-										<li><i class="icon-material-outline-access-time"></i><?php echo $job_posting_time;?> ago</li>
+										<li><i class="icon-material-outline-access-time"></i><?php echo $job_posting_time;?></li>
 									</ul>
 								</div>
 							</div>
@@ -64,3 +65,4 @@ $job_post = get_posts($args);
 		</div>
 	</div>
 </div>
+<?php endif;?>

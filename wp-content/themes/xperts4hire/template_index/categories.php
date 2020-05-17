@@ -5,7 +5,7 @@ $args = [
 ];
 $job_categories = get_categories($args);
 ?>
-
+<?php if(count($job_categories) > 0) : ?>
 <div class="section margin-top-65">
 	<div class="container">
 		<div class="row">
@@ -18,6 +18,9 @@ $job_categories = get_categories($args);
 				<div class="categories-container">
 				<?php 
 				 foreach($job_categories as $key => $category) :
+					if($key == 8){
+						break;
+					}
 					//icon set in custom fields				
 					$icon  = get_field('icon', 'category_'.$category->term_id);
 				 ?>
@@ -38,3 +41,4 @@ $job_categories = get_categories($args);
 		</div>
 	</div>
 </div>
+<?php endif;?>
