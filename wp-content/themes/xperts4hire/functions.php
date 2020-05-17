@@ -24,14 +24,11 @@
 
 	include( 'configure/blog-func.php' );
 
-	// HOOKS ADMIN
+	// Xperts4Hire Setting
+	include( 'configure/admin.php' );
 
-	if( is_admin() )
-	{
-		include( 'configure/admin.php' );
-	}
-
-
+	
+		
 // function shapeSpace_popular_posts($post_id) {
 //     $count_key = 'popular_posts';
 //     $count = get_post_meta($post_id, $count_key, true);

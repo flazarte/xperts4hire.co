@@ -158,6 +158,13 @@
 <!-- Footer / End -->
 
 </div>
+<!-- Sign In Popup
+================================================== -->
+<?php
+$footer =  _loginPopUp(); 
+echo $footer;
+?>
+<!-- Sign In Popup / End -->
 <!-- Wrapper / End -->
 <?php wp_footer(); ?>
 <script>
