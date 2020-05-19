@@ -66,6 +66,36 @@ class xperts4Hire{
         }
     return $result;
     }
+
+    public function xperts_employers($id){
+        $result     = [];
+        $user_data  = get_userdata( $id );
+        $data_user  = get_user_meta( $id );
+        $url        = esc_url( get_avatar_url( $id ) );
+        $flags      = (!empty($data_user['country'][0])) ? $data_user['country'][0] : 'ph';
+        $user_page  = get_author_posts_url($id);
+        $country    = user_country();
+            foreach($country as $key => $name){
+                if($key == $flags){
+                    $country_name =  $name;
+                }
+            }
+        $result = json_encode([
+            'id'            => $id,
+            'image_url'     => $url,
+            'display_name'  => $user_data->data->display_name,
+            'country_name'  => $country_name,
+            'country_abbr'  => $flags,
+            'flag_url'      => '/images/flags/'.$flags.'.'.'svg',
+            'status'        => $data_user['account_status'][0],
+            'description'   => $data_user['description'][0],
+            'user_url'      => $user_page,
+            'role'          => $user_data->roles[0],
+            'nice_name'     => $data_user['nickname'][0],
+        ]);
+        
+    return $result;
+    }
 }
 
 function _loginPopUp(){

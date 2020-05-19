@@ -42,25 +42,25 @@
 								<li><a href="#">Browse Jobs</a>
 									<ul class="dropdown-nav">
 										<li><a href="<?php echo home_url('job-list-map');?>">Search + Map</a></li>
-										<li><a href="jobs-grid-layout-full-page-map.html">Search List</a></li>
+										<li><a href="<?php echo home_url('job-listing');?>">Search List</a></li>
 									</ul>
 								</li>
-								<li><a href="#">Browse Tasks</a>
+								<!-- <li><a href="#">Browse Tasks</a>
 									<ul class="dropdown-nav">
 										<li><a href="tasks-list-layout-1.html">List Layout 1</a></li>
 										<li><a href="tasks-list-layout-2.html">List Layout 2</a></li>
 										<li><a href="tasks-grid-layout.html">Grid Layout</a></li>
 										<li><a href="tasks-grid-layout-full-page.html">Full Page Grid</a></li>
 									</ul>
-								</li>
-								<li><a href="<?php echo home_url('browse-companies');?>">Browse Companies</a></li>
+								</li> -->
+								<!-- <li><a href="<?php //echo home_url('browse-companies');?>">Browse Companies</a></li>
 								<li><a href="single-job-page.html">Job Page</a></li>
 								<li><a href="single-task-page.html">Task Page</a></li>
-								<li><a href="single-company-profile.html">Company Profile</a></li>
+								<li><a href="single-company-profile.html">Company Profile</a></li> -->
 							</ul>
 						</li>
 
-						<li><a href="#">For Employers</a>
+						<!-- <li><a href="#">For Employers</a>
 							<ul class="dropdown-nav">
 								<li><a href="#">Find a Freelancer</a>
 									<ul class="dropdown-nav">
@@ -74,9 +74,9 @@
 								<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
 								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
 							</ul>
-						</li>
+						</li> -->
 
-						<li><a href="#">Dashboard</a>
+						<!-- <li><a href="#">Dashboard</a>
 							<ul class="dropdown-nav">
 								<li><a href="dashboard.html">Dashboard</a></li>
 								<li><a href="dashboard-messages.html">Messages</a></li>
@@ -99,7 +99,7 @@
 								</li>
 								<li><a href="dashboard-settings.html">Settings</a></li>
 							</ul>
-						</li>
+						</li> -->
 
 						<li><a href="#">Pages</a>
 							<ul class="dropdown-nav">

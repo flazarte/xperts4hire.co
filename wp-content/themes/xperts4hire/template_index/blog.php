@@ -6,7 +6,7 @@ $args = [
 ];
 $blog_post = get_posts($args);
 ?>
-<?php if(count($blog_post) > 0) : ?>
+<?php if(count($blog_post) > 2) : ?>
 <div class="section padding-top-65 padding-bottom-50">
 	<div class="container">
 		<div class="row">

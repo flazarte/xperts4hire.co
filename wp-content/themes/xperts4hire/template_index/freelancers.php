@@ -2,7 +2,7 @@
 $handlers = new xperts4Hire();
 $users    = get_users( 'role=employee');
 ?>
-<?php if(count($users) > 0) : ?>
+<?php if(count($users) > 4) : ?>
 <div class="section gray padding-top-65 padding-bottom-70 full-width-carousel-fix">
 	<div class="container">
 		<div class="row">
@@ -10,7 +10,7 @@ $users    = get_users( 'role=employee');
 			<div class="col-xl-12">
 				<!-- Section Headline -->
 				<div class="section-headline margin-top-0 margin-bottom-25">
-					<h3>Highest Rated Freelancers</h3>
+					<h3>Recent Freelancers</h3>
 					<a href="freelancers-grid-layout.html" class="headline-link">Browse All Freelancers</a>
 				</div>
 			</div>
