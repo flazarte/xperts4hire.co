@@ -66,7 +66,7 @@ $users    = get_users( 'role=employee');
 									<li>Job Success <strong>95%</strong></li>
 								</ul>
 							</div>
-							<a href="single-freelancer-profile.html" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+							<a href="<?php echo $users_data['user_url'];?>" target="_blank" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
 						</div>
 					</div>
                     <?php endforeach;wp_reset_query();?>

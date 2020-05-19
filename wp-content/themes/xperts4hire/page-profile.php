@@ -4,9 +4,9 @@
  */ 
 get_header();
 //profile id
-$id = um_profile_id();
-$handlers = new xperts4Hire();
-$data = $handlers->xperts_users($id);
+$id        = um_profile_id();
+$handlers  = new xperts4Hire();
+$data      = $handlers->xperts_users($id);
 $user_data = json_decode($data , true);
 ?>
 <!-- Titlebar
@@ -198,10 +198,11 @@ $user_data = json_decode($data , true);
 					<div class="overview-item"><strong>53</strong><span>Jobs Done</span></div>
 					<div class="overview-item"><strong>22</strong><span>Rehired</span></div>
 				</div>
-
-				<!-- Button -->
+                       
+				<!-- Button --> 
+				<?php if($current = get_current_user_id() != $user_data['id']):?>
 				<a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></a>
-
+                <?php endif;?>
 				<!-- Freelancer Indicators -->
 				<div class="sidebar-widget">
 					<div class="freelancer-indicators">

@@ -12,6 +12,7 @@ class xperts4Hire{
         $rate       = (!empty($data_user['hourly_rate'][0])) ? $data_user['hourly_rate'][0] : 0;
         $resume     = (!empty($data_user['resume__cv'][0])) ? $data_user['resume__cv'][0] : '';
         $cover      = (!empty($data_user['cover_letter'][0])) ? $data_user['cover_letter'][0] : '';
+        $user_page  = get_author_posts_url($id);
         $country    = user_country();
             foreach($country as $key => $name){
                 if($key == $flags){
@@ -31,12 +32,40 @@ class xperts4Hire{
             'rate'          => $rate,
             'resume_cv'     => $resume,
             'cover_letter'  => $cover,
+            'user_url'      => $user_page,
+            'role'          => $user_data->roles[0],
+            'nice_name'     => $data_user['nickname'][0],
         ]);
 
     return $result;
     }
-   
 
+    public function jobs_listing($post_per_page){
+        $args = [
+            'post_type'      => 'jobpost',
+            'posts_per_page' => $post_per_page,
+        ];
+        $job_post            = get_posts($args);
+        $result              = [];
+        foreach($job_post as $key => $job){
+            $job_type         = sjb_get_the_job_type($job->ID);
+            $job_location     = sjb_get_the_job_location($job->ID);
+            $job_posting_time = get_post_time('j F Y','true',$job->ID,'false');
+            //$company_logo     = sjb_the_company_logo('thumbnail', '', '', $job->ID);
+            $company_name     = sjb_get_the_company_name($job->ID);
+            $id               = $job->ID;
+
+            $result[] = [
+                'id'           => $id,
+                'company_name' => $company_name,
+                'title'        => $job->post_title,
+                'location'     => $job_location[0]->name,
+                'type'         => $job_type[0]->name,
+                'post_date'    => $job_posting_time,
+            ];
+        }
+    return $result;
+    }
 }
 
 function _loginPopUp(){
@@ -183,6 +212,12 @@ function _logout_header() {
 
 </div><?php
     }else{?>
+<?php 
+$handler             = new xperts4Hire(); 
+$current_user_id     = get_current_user_id();
+$users_data_login    = $handler->xperts_users($current_user_id);
+$users_current_data  = json_decode($users_data_login  , true);
+?>
 <div class="right-side">
 
     <!--  User Notifications -->
@@ -346,7 +381,7 @@ function _logout_header() {
             <div class="header-notifications-trigger">
                 <a href="#">
                     <div class="user-avatar status-online"><img
-                            src="<?php bloginfo('stylesheet_directory');?>/images/user-avatar-small-01.jpg" alt="">
+                            src="<?php echo $users_current_data['image_url'];?>" alt="<?php echo $users_current_data['display_name'];?>">
                     </div>
                 </a>
             </div>
@@ -360,10 +395,10 @@ function _logout_header() {
                     <!-- User Name / Avatar -->
                     <div class="user-details">
                         <div class="user-avatar status-online"><img
-                                src="<?php bloginfo('stylesheet_directory');?>/images/user-avatar-small-01.jpg" alt="">
+                                src="<?php echo $users_current_data['image_url'];?>" alt="<?php echo $users_current_data['display_name'];?>">
                         </div>
                         <div class="user-name">
-                            Tom Smith <span>Freelancer</span>
+                        <?php echo $users_current_data['display_name'];?> <span><?php echo ucfirst($users_current_data['role']);?></span>
                         </div>
                     </div>
 
@@ -377,7 +412,7 @@ function _logout_header() {
                 </div>
 
                 <ul class="user-menu-small-nav">
-                    <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+                    <li><a href="<?php echo home_url('dashboard');?>"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
                     <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a>
                     </li>
                     <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i>
@@ -843,4 +878,13 @@ function _make_offer(){
 
         <?php
     }
+}
+
+function is_active(){
+    $attr = '';
+    if(is_home() || is_front_page()){
+        $attr = 'class="current"';
+
+    }
+return $attr;
 }

@@ -26,8 +26,9 @@
 
 	// Xperts4Hire Setting
 	include( 'configure/admin.php' );
-
 	
+	//MAP SETTINGS JS
+	include( 'configure/js-sreet-map.php' );
 		
 // function shapeSpace_popular_posts($post_id) {
 //     $count_key = 'popular_posts';
