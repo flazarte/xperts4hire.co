@@ -24,9 +24,8 @@
 				
 				<!-- Logo -->
 				<div id="logo">
-					<a href="index.html">
-						<h2 class="logo-brand">Xperts4Hire</h2>	
-						<!-- <img src="<?php //bloginfo('stylesheet_directory');?>/images/logo.png" alt=""> -->
+					<a href="<?php echo home_url();?>">
+						<img src="<?php bloginfo('stylesheet_directory');?>/images/logo/cover.png" alt="xperts4hire.co">
 					</a>
 				</div>
 

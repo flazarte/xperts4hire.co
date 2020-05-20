@@ -15,8 +15,8 @@
 						<div class="footer-rows-left">
 							<div class="footer-row">
 								<div class="footer-row-inner footer-logo">
-									<!-- <img src="<?php //bloginfo('stylesheet_directory');?>/images/logo2.png" alt=""> -->
-									<h2 class="logo-brand-footer">Xperts4Hire</h2>
+									<img src="<?php bloginfo('stylesheet_directory');?>/images/logo/profile.png" alt="xperts4hire">
+									<!-- <h2 class="logo-brand-footer">Xperts4Hire</h2> -->
 								</div>
 							</div>
 						</div>
