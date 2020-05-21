@@ -3,7 +3,6 @@
  * Template Name: Login Template
  */ 
 get_header();
-$class = new xperts4Hire();
 ?>
 <!-- Titlebar
 ================================================== -->
@@ -40,24 +39,26 @@ $class = new xperts4Hire();
 				<div class="welcome-text">
 					<h3>We're glad to see you again!</h3>
 					<span>Don't have an account? <a href="<?php echo home_url('register');?>">Sign Up!</a></span>
+					<?php if(count($error = my_check_login()) > 0) : echo $error['invalid_user'];?>
+					<?php endif;?>
 				</div>
 					
 				<!-- Form -->
 				<form method="post" id="login-form">
 					<div class="input-with-icon-left">
 						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" name="emailaddress" id="emailaddress" placeholder="Email Address" required/>
+						<input type="text" class="input-text with-border" name="user_login" id="user_login"  placeholder="Email Address" required/>
 					</div>
 
 					<div class="input-with-icon-left">
 						<i class="icon-material-outline-lock"></i>
-						<input type="password" class="input-text with-border" name="password" id="password" placeholder="Password" required/>
+						<input type="password" class="input-text with-border" name="user_password" id="user_password" placeholder="Password" required/>
 					</div>
 					<a href="#" class="forgot-password">Forgot Password?</a>
 				</form>
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">Log In <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form" id="login_Sbumit" name="login_Sbumit">Log In <i class="icon-material-outline-arrow-right-alt"></i></button>
 				
 				<!-- Social Login -->
 				<div class="social-login-separator"><span>or</span></div>

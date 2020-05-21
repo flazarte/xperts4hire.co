@@ -123,23 +123,23 @@ function _loginPopUp(){
                 </div>
 
                 <!-- Form -->
-                <form method="post" id="login-form">
+                <form method="post" action="<?php echo home_url('login');?>" id="login-form">
                     <div class="input-with-icon-left">
                         <i class="icon-material-baseline-mail-outline"></i>
-                        <input type="text" class="input-text with-border" name="emailaddress" id="emailaddress"
+                        <input type="text" class="input-text with-border" name="user_login" id="user_login"
                             placeholder="Email Address" required />
                     </div>
 
                     <div class="input-with-icon-left">
                         <i class="icon-material-outline-lock"></i>
-                        <input type="password" class="input-text with-border" name="password" id="password"
+                        <input type="password" class="input-text with-border" name="user_password" id="user_password"
                             placeholder="Password" required />
                     </div>
                     <a href="#" class="forgot-password">Forgot Password?</a>
                 </form>
 
                 <!-- Button -->
-                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="login-form">Log
+                <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="login-form" name="login_Sbumit" id="login_Sbumit">Log
                     In <i class="icon-material-outline-arrow-right-alt"></i></button>
 
                 <!-- Social Login -->
@@ -445,7 +445,7 @@ $users_current_data  = json_decode($users_data_login  , true);
                     <li><a href="<?php echo home_url('dashboard');?>"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
                     <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a>
                     </li>
-                    <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i>
+                    <li><a href="<?php echo wp_logout_url();?>"><i class="icon-material-outline-power-settings-new"></i>
                             Logout</a></li>
                 </ul>
 
