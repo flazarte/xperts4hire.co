@@ -53,15 +53,20 @@ $class = new xperts4Hire();
 						<label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i> Employer</label>
 					</div>
 				</div>
-					
+                
 				<!-- Form -->
 				<form method="post" id="register-account-form">
 					<div class="input-with-icon-left">
-						<i class="icon-material-baseline-mail-outline"></i>
-						<input type="text" class="input-text with-border" name="emailaddress-register" id="emailaddress-register" placeholder="Email Address" required/>
+						<i class="icon-material-outline-account-circle"></i>
+						<input type="username" class="input-text with-border" name="user_name" id="user_name" placeholder="User Name" required/>
 					</div>
 
-					<div class="input-with-icon-left" title="Should be at least 8 characters long" data-tippy-placement="bottom">
+					<div class="input-with-icon-left">
+						<i class="icon-material-baseline-mail-outline"></i>
+						<input type="email" class="input-text with-border" name="user_email" id="user_email" placeholder="Email Address" required/>
+					</div>
+
+					<!-- <div class="input-with-icon-left" title="Should be at least 8 characters long" data-tippy-placement="bottom">
 						<i class="icon-material-outline-lock"></i>
 						<input type="password" class="input-text with-border" name="password-register" id="password-register" placeholder="Password" required/>
 					</div>
@@ -69,18 +74,19 @@ $class = new xperts4Hire();
 					<div class="input-with-icon-left">
 						<i class="icon-material-outline-lock"></i>
 						<input type="password" class="input-text with-border" name="password-repeat-register" id="password-repeat-register" placeholder="Repeat Password" required/>
-					</div>
+					</div> -->
 				</form>
 				
 				<!-- Button -->
-				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">Register <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form" name="freelance_Register" id="freelance_Register">Register <i class="icon-material-outline-arrow-right-alt"></i></button>
+				<button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form" name="Employer_Register" id="Employer_Register">Register <i class="icon-material-outline-arrow-right-alt"></i></button>
 				
 				<!-- Social Login -->
-				<div class="social-login-separator"><span>or</span></div>
+				<!-- <div class="social-login-separator"><span>or</span></div>
 				<div class="social-login-buttons">
 					<button class="facebook-login ripple-effect"><i class="icon-brand-facebook-f"></i> Register via Facebook</button>
 					<button class="google-login ripple-effect"><i class="icon-brand-google-plus-g"></i> Register via Google+</button>
-				</div>
+				</div> -->
 			</div>
 
 		</div>

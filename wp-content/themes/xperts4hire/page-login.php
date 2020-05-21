@@ -39,12 +39,15 @@ get_header();
 				<div class="welcome-text">
 					<h3>We're glad to see you again!</h3>
 					<span>Don't have an account? <a href="<?php echo home_url('register');?>">Sign Up!</a></span>
-					<?php if(count($error = my_check_login()) > 0) : echo $error['invalid_user'];?>
-					<?php endif;?>
+					<?php if(!empty($error = my_check_login())) {
+						if(count($error)){
+							echo $error['invalid_user'];
+						}
+					}?>
 				</div>
 					
 				<!-- Form -->
-				<form method="post" id="login-form">
+				<form method="post" action="" id="login-form">
 					<div class="input-with-icon-left">
 						<i class="icon-material-baseline-mail-outline"></i>
 						<input type="text" class="input-text with-border" name="user_login" id="user_login"  placeholder="Email Address" required/>

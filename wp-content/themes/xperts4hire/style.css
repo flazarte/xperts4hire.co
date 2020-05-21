@@ -27,3 +27,64 @@ Text Domain:
 .error {
     color: red;
 }
+
+
+/*form control */
+
+#register-account-form,
+#freelance_Register,
+#Employer_Register {
+    display: none;
+}
+
+
+/*Styling for errors on form*/
+
+.form_error span {
+    width: 80% !important;
+    height: 35px !important;
+    margin: 3px 10% !important;
+    font-size: 1.1em !important;
+    color: #D83D5A !important;
+}
+
+.form_error input {
+    border: 1px solid #D83D5A !important;
+}
+
+
+/*Styling in case no errors on form register*/
+
+.form_success span {
+    width: 80% !important;
+    height: 35px !important;
+    margin: 3px 10% !important;
+    font-size: 1.1em !important;
+    color: green !important;
+}
+
+.form_success i input[type="email"].with-border {
+    border: 1px solid green !important;
+}
+
+.form_success i input[type="username"].with-border {
+    border: 1px solid green !important;
+}
+
+.form_error i input[type="email"].with-border {
+    border: 1px solid #D83D5A !important;
+}
+
+.form_error i input[type="username"].with-border {
+    border: 1px solid #D83D5A !important;
+}
+
+.form_success i input {
+    border: 1px solid green !important;
+}
+
+#error_msg {
+    color: red !important;
+    text-align: center !important;
+    margin: 10px auto!important;
+}

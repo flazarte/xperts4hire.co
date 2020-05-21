@@ -161,9 +161,17 @@
 <!-- Sign In Popup
 ================================================== -->
 <?php
-$footer =  _loginPopUp();
+if(is_page('register')){
+   //do nothing
+}elseif(is_page('login')){
+  //do nothing
+}
+else{
+	$footer =  _loginPopUp();
+    echo($footer);
+}
+
 $offer = _make_offer(); 
-echo $footer;
 echo $offer;
 ?>
 <!-- Sign In Popup / End -->

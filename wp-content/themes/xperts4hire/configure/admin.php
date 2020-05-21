@@ -99,7 +99,7 @@ class xperts4Hire{
 }
 
 function _loginPopUp(){
-    if(!is_user_logged_in() ) {
+    if(!is_user_logged_in()) {
     ?>
 <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
@@ -918,3 +918,46 @@ function is_active(){
     }
 return $attr;
 }
+
+function _add_javascript_register()
+	{
+		
+		  wp_enqueue_script('ajax-script', get_template_directory_uri() . '/configure/register.js', array(), null, true );
+		  wp_localize_script( 'ajax-script', 'xperts_register', array( 'ajaxurl' =>   admin_url( 'admin-ajax.php' ) ) );
+		
+	}
+    add_action('wp_enqueue_scripts', '_add_javascript_register', 100);
+   
+    
+
+function username_check(){
+    //real tme validation for username with jquery
+    if (isset($_POST)) {
+            $username = $_POST['username'];                   
+                if(username_exists($username)) {
+                    $result =  "taken";	
+                }else{
+                    $result =  "not_taken";
+                }
+            echo  $result;
+    }
+die();
+}
+add_action( 'wp_ajax_nopriv_username_check', 'username_check' );
+add_action( 'wp_ajax_username_check', 'username_check' );
+
+function email_check(){
+        //real tme validation for email with jquery
+        if (isset($_POST)) {
+            $email = $_POST['email'];                   
+                if (email_exists($email)) {
+                    $result =  "taken";	
+                }else{
+                    $result =  "not_taken";
+                }
+            echo  $result;
+        }
+        die();
+}
+add_action( 'wp_ajax_nopriv_email_check', 'email_check' );
+add_action( 'wp_ajax_email_check', 'email_check' );

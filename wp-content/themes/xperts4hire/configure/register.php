@@ -62,3 +62,131 @@ function redirect_login_page() {
 
 }
 add_action( 'template_redirect', 'redirect_login_page' );
+
+add_action('template_redirect', 'my_check_register');
+function my_check_register(){
+    if( is_page('register') && isset($_POST['login_Register']) ){
+		$username= sanitize_user($_POST['user_name']);
+		$email= sanitize_email($_POST['user_email']);
+	
+		$error=array();
+	
+		if(strpos($username,' ')!==FALSE){
+		  $error['username_space']= __('<strong class="error">ERROR</strong>: Username has space!');
+	
+		}
+	
+		if(empty($username)){
+			$error['username_empty']= __('<strong class="error">ERROR</strong>: Username required!');
+		}
+		if(username_exists($username)){
+		$error['username_exist']= __('<strong class="error">ERROR</strong>: Username already exist!');
+	
+		}
+	
+	 if(!is_email($email)){
+		 $error['email_valid']= __('<strong class="error">ERROR</strong>: Enter Valid Email Address.');
+	
+		}
+	
+		if(email_exists($email)){
+		 $error['email_existence']= __('<strong class="error">ERROR</strong>: Email exist!');
+	
+		}
+	
+		if(count($error)==0) {
+		 $user_id = wp_create_user($username,$password,$email);
+		 echo "you have registered succesfully.. ";
+	
+	   wp_new_user_notification($user_id);
+	   exit();
+		}
+	
+		else{
+		   print_r($error);
+		   }
+	}
+
+}
+
+add_action( 'wp_ajax_nopriv_freelance_register', 'freelance_register' );
+add_action( 'wp_ajax_freelance_register', 'freelance_register' );
+function freelance_register(){
+    if(isset($_POST['register']) ){
+		$username= sanitize_user($_POST['username']);
+		$email= sanitize_email($_POST['email']);
+		$error=array();
+		$user_id = wp_create_user( $username, $random_password, $email );
+        $user_id_role = new WP_User($user_id);
+		$user_id_role->set_role('employee');
+		wp_new_user_notification($user_id);
+	
+			echo 'success';
+	
+	   die();
+	}
+
+}
+
+function wc_registration_redirect( $redirect_to ) {
+	wp_logout();
+	wp_redirect( '/sign-in/?q=');
+	exit;
+}
+// when user login, we will check whether this guy email is verify
+function wp_authenticate_user( $userdata ) {
+	$isActivated = get_user_meta($userdata->ID, 'is_activated', true);
+	if ( !$isActivated ) {
+		$userdata = new WP_Error(
+			'inkfool_confirmation_error',
+			__( '<strong>ERROR:</strong> Your account has to be activated before you can login. You can resend by clicking <a href="/sign-in/?u='.$userdata->ID.'">here</a>', 'inkfool' )
+		);
+	}
+	return $userdata;
+}
+// when a user register we need to send them an email to verify their account
+function my_user_register($user_id) {
+		// get user data
+		$user_info = get_userdata($user_id);
+		// create md5 code to verify later
+		$code = md5(time());
+		// make it into a code to send it to user via email
+		$string = array('id'=>$user_id, 'code'=>$code);
+		// create the activation code and activation status
+		update_user_meta($user_id, 'is_activated', 0);
+		update_user_meta($user_id, 'activationcode', $code);
+		// create the url
+		$url = get_site_url(). '/sign-in/?p=' .base64_encode( serialize($string));
+		// basically we will edit here to make this nicer
+		$html = 'Please click the following links <br/><br/> <a href="'.$url.'">'.$url.'</a>';
+		// send an email out to user
+		wc_mail($user_info->user_email, __('Please activate your account'), $html);
+}
+// we need this to handle all the getty hacks i made
+function my_init(){
+		// check whether we get the activation message
+		if(isset($_GET['p'])){
+			$data = unserialize(base64_decode($_GET['p']));
+			$code = get_user_meta($data['id'], 'activationcode', true);
+			// check whether the code given is the same as ours
+			if($code == $data['code']){
+				// update the db on the activation process
+				update_user_meta($data['id'], 'is_activated', 1);
+				wc_add_notice( __( '<strong>Success:</strong> Your account has been activated! ', 'inkfool' )  );
+			}else{
+				wc_add_notice( __( '<strong>Error:</strong> Activation fails, please contact our administrator. ', 'inkfool' )  );
+			}
+		}
+		if(isset($_GET['q'])){
+			wc_add_notice( __( '<strong>Error:</strong> Your account has to be activated before you can login. Please check your email.', 'inkfool' ) );
+		}
+		if(isset($_GET['u'])){
+			my_user_register($_GET['u']);
+			wc_add_notice( __( '<strong>Succes:</strong> Your activation email has been resend. Please check your email.', 'inkfool' ) );
+		}
+}
+// hooks handler
+add_action( 'init', 'my_init' );
+add_filter('woocommerce_registration_redirect', 'wc_registration_redirect');
+add_filter('wp_authenticate_user', 'wp_authenticate_user',10,2);
+add_action('user_register', 'my_user_register',10,2);
