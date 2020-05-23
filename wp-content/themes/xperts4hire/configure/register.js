@@ -2,36 +2,51 @@ $('document').ready(function() {
     var email_state = false;
     var username_state = false;
 
-    // $('a').on('click', function() {
-    //     var username = $('#v-pills-2-tab').val();
-    //     if (username == '') {
-    //         username_state = false;
-    //         return;
-    //     }
-    //     // $("button").attr("aria-expanded","true");
-    //     console.log('true');
-    //     $.ajax({
-    //         url: 'register.php',
-    //         type: 'post',
-    //         data: {
-    //             'username_check': 1,
-    //             'username': username,
-    //         },
-    //         success: function(response) {
-    //             if (response == 'taken') {
-    //                 username_state = false;
-    //                 $('#username').parent().removeClass();
-    //                 $('#username').parent().addClass("form_error");
-    //                 $('#username').siblings("span").text('Sorry... Username already taken');
-    //             } else if (response == 'not_taken') {
-    //                 username_state = true;
-    //                 $('#username').parent().removeClass();
-    //                 $('#username').parent().addClass("form_success");
-    //                 $('#username').siblings("span").text('Username available');
-    //             }
-    //         }
-    //     });
-    // });
+    $('#update_account').on('click', function() {
+        var profile_name = $('#p_name').val();
+        var last_name    = $('#p_last').val();
+        var rate         = $('#rate').val();
+        var position     = $('#position').val();
+        var country      = $('#country').val();
+        var description  = $('#description').val();
+        var cover_letter = $('#upload').val();
+        var resume       = $('#resumeUpload').val();
+        var skills       = $('#skills').val();
+        var password     = $('#n_password').val();
+        var user_id      = $('#employer-radio').val();    
+
+        $.ajax({
+            url: xperts_register.ajaxurl,
+            type: 'post',
+            data: {
+                'action'        : 'update_account',
+                'update_account': true,
+                'user_id'       : user_id,
+                'profile_name'  : profile_name,
+                'last_name'     : last_name,
+                'rate'          : rate,
+                'position'      : position,
+                'country'       : country,
+                'description'   : description,
+                'cover_letter'  : cover_letter,
+                'resume'        : resume,
+                'skills'        : skills,
+                'address'       : '',
+                'city'          : '',
+                'postalcode'    : '',
+            },
+            success: function(data) {
+                if (data == 'success') {
+                    var r = confirm("Successfully updated!");
+                    if (r == true){
+                    window.location.reload();
+                    }
+                } else{
+                    alert('Failed! Please try again.');
+                }
+            }
+        });
+    });
     $('#user_name').bind('keyup change', function() {
         var username = $('#user_name').val();
         if (username == '') {

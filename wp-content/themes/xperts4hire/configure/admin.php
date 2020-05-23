@@ -35,6 +35,9 @@ class xperts4Hire{
             'user_url'      => $user_page,
             'role'          => $user_data->roles[0],
             'nice_name'     => $data_user['nickname'][0],
+            'first_name'    => $data_user['first_name'][0],
+            'last_name'     => $data_user['last_name'][0],
+            'email'         => $user_data->data->user_email,
         ]);
 
     return $result;
@@ -442,8 +445,9 @@ $users_current_data  = json_decode($users_data_login  , true);
                 </div>
 
                 <ul class="user-menu-small-nav">
+                    <li><a href="<?php echo home_url('profile');?>"><i class="icon-material-outline-account-circle"></i>View Profile</a></li>
                     <li><a href="<?php echo home_url('dashboard');?>"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                    <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a>
+                    <li><a href="<?php echo home_url('dashboard-setting');?>"><i class="icon-material-outline-settings"></i> Settings</a>
                     </li>
                     <li><a href="<?php echo wp_logout_url();?>"><i class="icon-material-outline-power-settings-new"></i>
                             Logout</a></li>
@@ -560,7 +564,7 @@ $country = [
 'fm' => 'Federated States Of Micronesia',
 'fo' => 'Faroe Islands',
 'fr' => 'France',
-//oshortcut
+//shortcut
 'ph' => 'Philippines',
 'us' => 'United States',
 
@@ -961,3 +965,117 @@ function email_check(){
 }
 add_action( 'wp_ajax_nopriv_email_check', 'email_check' );
 add_action( 'wp_ajax_email_check', 'email_check' );
+
+//restrict current user to register page
+function redirect_register_page() {
+
+    if( is_page( 'register' ) && is_user_logged_in() ) {
+        wp_redirect( home_url() );
+        exit;
+    }
+
+}
+add_action( 'template_redirect', 'redirect_register_page' );
+
+function update_account(){
+    //registration Query
+    if (isset($_POST['update_account'])) {
+
+        if(!empty( $_POST['profile_name'] )){
+            update_user_meta( $_POST['user_id'], 'first_name', $_POST['profile_name'] );
+        }
+
+        if(!empty( $_POST['last_name'] )){
+            update_user_meta( $_POST['user_id'], 'last_name', $_POST['last_name'] );
+        }
+
+        if(!empty( $_POST['description'] )){
+            update_user_meta( $_POST['user_id'], 'description', $_POST['description'] );
+        }
+
+        if(!empty( $_POST['country'] )){
+            update_user_meta( $_POST['user_id'], 'country', $_POST['country'] );
+        }
+
+        if(!empty( $_POST['rate'] )){
+            update_user_meta( $_POST['user_id'], 'hourly_rate', $_POST['rate'] );
+        }
+
+        if(!empty( $_POST['position'] )){
+            update_user_meta( $_POST['user_id'], 'user-position', $_POST['position'] );
+        }
+
+        if(!empty( $_POST['cover_letter'] )){
+            $resume_id = my_upload_function(  $_POST['cover_letter'], 0 , false );
+            update_user_meta( $_POST['user_id'], 'cover_letter', $resume_id );
+        }
+
+        if(!empty( $_POST['resume'] )){
+            $resume_id = my_upload_function(  $_POST['resume'], 0 , false );    
+            update_user_meta( $_POST['user_id'], 'resume__cv', $resume_id );
+        }
+
+        if(!empty( $_POST['skills'] )){
+            //update_user_meta( $_POST['user_id'], 'rate', $_POST['rate'] );
+        }
+
+        if(!empty( $_POST['address'] )){
+            update_user_meta( $_POST['user_id'], 'address', $_POST['address'] );;
+        }
+
+        if(!empty( $_POST['city'] )){
+            update_user_meta( $_POST['user_id'], 'city', $_POST['city'] );;
+        }
+
+        if(!empty( $_POST['postalcode'] )){
+            update_user_meta( $_POST['user_id'], 'postalcode', $_POST['postalcode'] );;
+        }
+
+     echo  'success';
+    }
+    die();
+}
+add_action( 'wp_ajax_nopriv_update_account', 'update_account' );
+add_action( 'wp_ajax_update_account', 'update_account' );
+
+function per_user_upload_dir( $original ){
+    // use the original array for initial setup
+    $modified = $original;
+    // set our own replacements
+    if ( is_user_logged_in() ) {
+        $current_user = wp_get_current_user();
+        $subdir = $current_user->user_login;
+        $modified['subdir'] = $subdir;
+        $modified['url'] = $original['baseurl'] . '/' . $subdir;
+        $modified['path'] = $original['basedir'] . DIRECTORY_SEPARATOR . $subdir;
+    }
+    return $modified;
+}
+add_filter( 'upload_dir', 'per_user_upload_dir');
+
+function my_upload_function( $file, $post_id = 0 , $set_as_featured = false ) {
+    
+    $wp_filetype = wp_check_filetype( basename( $file ), null );
+   
+    $wp_upload_dir = wp_upload_dir();
+
+    $attachment = array(
+        'guid' => $file,
+        'post_mime_type' => $wp_filetype['type'],
+        'post_title' => preg_replace('/\.[^.]+$/', '', basename( $file )),
+        'post_content' => '',
+        'post_status' => 'inherit'
+    );
+    $fileName  = $wp_upload_dir['url'].'/'.basename( $file );
+    $attach_id = wp_insert_attachment( $attachment, $fileName, $post_id );
+
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+    $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+    wp_update_attachment_metadata( $attach_id, $attach_data );
+
+    if( $set_as_featured == true ) {
+        update_post_meta( $post_id, '_thumbnail_id', $attach_id );
+    }
+return $attach_id;
+}

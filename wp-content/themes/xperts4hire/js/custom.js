@@ -1076,12 +1076,34 @@ $(document).ready(function(){
     /*  Custom Upload Button
     /*----------------------------------------------------*/
 
-	var uploadButton = {
+	// var uploadButton = {
+	// 	$button    : $('.uploadButton-input'),
+	// 	$nameField : $('.uploadButton-file-name')
+	// };
+
+	// uploadButton.$button.on('change',function() {
+	// 	_populateFileField($(this));
+	// });
+
+	// function _populateFileField($button) {
+	// 	var selectedFile = [];
+	//     for (var i = 0; i < $button.get(0).files.length; ++i) {
+	//         selectedFile.push($button.get(0).files[i].name +'<br>');
+	//     }
+	//     uploadButton.$nameField.html(selectedFile);
+	// }
+
+	
+    /*----------------------------------------------------*/
+    /*  Cover Button
+    /*----------------------------------------------------*/
+
+	var coverUploadButton = {
 		$button    : $('.uploadButton-input'),
 		$nameField : $('.uploadButton-file-name')
 	};
 
-	uploadButton.$button.on('change',function() {
+	coverUploadButton.$button.on('change',function() {
 		_populateFileField($(this));
 	});
 
@@ -1090,9 +1112,29 @@ $(document).ready(function(){
 	    for (var i = 0; i < $button.get(0).files.length; ++i) {
 	        selectedFile.push($button.get(0).files[i].name +'<br>');
 	    }
-	    uploadButton.$nameField.html(selectedFile);
+	    coverUploadButton.$nameField.html(selectedFile);
 	}
 
+	/*----------------------------------------------------*/
+    /*  Resume Button
+    /*----------------------------------------------------*/
+
+	// var resumeUploadButton = {
+	// 	$button    : $('uploadButton-input'),
+	// 	$nameField : $('uploadButton-file-name')
+	// };
+
+	// resumeUploadButton.$button.on('change',function() {
+	// 	_populateFileField($(this));
+	// });
+
+	// function _populateFileField($button) {
+	// 	var selectedFile = [];
+	//     for (var i = 0; i < $button.get(0).files.length; ++i) {
+	//         selectedFile.push($button.get(0).files[i].name +'<br>');
+	//     }
+	// resumeUploadButton.$nameField.html(selectedFile);
+	// }
 
   	/*----------------------------------------------------*/
     /*  Slick Carousel

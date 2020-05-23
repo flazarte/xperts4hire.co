@@ -88,3 +88,6 @@ Text Domain:
     text-align: center !important;
     margin: 10px auto!important;
 }
+a#update_account.button.ripple-effect.big.margin-top-30.white{
+    color: #ffffff!important;
+}

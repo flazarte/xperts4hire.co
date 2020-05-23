@@ -102,8 +102,10 @@
 
 						<li><a href="#">Pages</a>
 							<ul class="dropdown-nav">
+							    <?php if( !is_user_logged_in()) :?>
 								<li><a href="<?php echo home_url('login');?>">Login</a></li>
 								<li><a href="<?php echo home_url('register');?>">Register</a></li>
+								<?php endif;?>
 								<li><a href="<?php echo home_url('blog');?>">Blog</a></li>
 								<li><a href="<?php echo home_url('contact');?>">Contact</a></li>
 							</ul>

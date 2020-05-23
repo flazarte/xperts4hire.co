@@ -84,8 +84,8 @@
 					<div class="footer-links">
 						<h3>For Candidates</h3>
 						<ul>
-							<li><a href="#"><span>Browse Jobs</span></a></li>
-							<li><a href="#"><span>Add Resume</span></a></li>
+							<li><a href="<?php echo home_url('job-listing');?>"><span>Browse Jobs</span></a></li>
+							<li><a href="<?php echo home_url('dashboard-setting');?>"><span>Add Resume</span></a></li>
 							<li><a href="#"><span>Job Alerts</span></a></li>
 							<li><a href="#"><span>My Bookmarks</span></a></li>
 						</ul>
@@ -110,7 +110,7 @@
 					<div class="footer-links">
 						<h3>Helpful Links</h3>
 						<ul>
-							<li><a href="#"><span>Contact</span></a></li>
+							<li><a href="<?php echo home_url('contact');?>"><span>Contact</span></a></li>
 							<li><a href="#"><span>Privacy Policy</span></a></li>
 							<li><a href="#"><span>Terms of Use</span></a></li>
 						</ul>
@@ -122,8 +122,13 @@
 					<div class="footer-links">
 						<h3>Account</h3>
 						<ul>
-							<li><a href="#"><span>Log In</span></a></li>
-							<li><a href="#"><span>My Account</span></a></li>
+							<?php if( is_user_logged_in()) :?>
+							<li><a href="<?php echo wp_logout_url();?>"><span>Log Out</span></a></li>
+							<li><a href="<?php echo home_url('dashboard-setting');?>"><span>My Account</span></a></li>
+							<?php else :?>
+							<li><a href="<?php echo home_url('login');?>"><span>Log In</span></a></li>
+							<li><a href="<?php echo home_url('register');?>"><span>Register</span></a></li>
+							<?php endif;?>
 						</ul>
 					</div>
 				</div>
