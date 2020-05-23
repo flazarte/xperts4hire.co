@@ -1079,3 +1079,10 @@ function my_upload_function( $file, $post_id = 0 , $set_as_featured = false ) {
     }
 return $attach_id;
 }
+
+//custom redirect
+add_action('wp_logout','ps_redirect_after_logout');
+function ps_redirect_after_logout(){
+         wp_redirect( home_url('login') );
+         exit();
+}
