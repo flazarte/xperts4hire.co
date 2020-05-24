@@ -91,3 +91,6 @@ Text Domain:
 a#update_account.button.ripple-effect.big.margin-top-30.white{
     color: #ffffff!important;
 }
+p.pvc_stats.all{
+    display:none!important;
+} 

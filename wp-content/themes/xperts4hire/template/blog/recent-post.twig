@@ -1,0 +1,49 @@
+<!-- Section Headline -->
+				<div class="section-headline margin-top-60 margin-bottom-35">
+					<h4>Recent Posts</h4>
+				</div>
+
+                {% for post in posts %}
+				<!-- Blog Post -->
+				<a href="{{ post.link }}" class="blog-post">
+					<!-- Blog Post Thumbnail -->
+					<div class="blog-post-thumbnail">
+						<div class="blog-post-thumbnail-inner">
+							<span class="blog-item-tag">{{ post.category }}</span>
+							<img src="{{ post.thumbnail.src }}" alt="{{ post.post_title }}">
+						</div>
+					</div>
+					<!-- Blog Post Content -->
+					<div class="blog-post-content">
+						<span class="blog-post-date">{{ post.date('F j Y') }}</span>
+						<h3>{{ post.post_title }}</h3>
+						<p>{{ post.get_field('post-description') }}</p>
+					</div>
+					<!-- Icon -->
+					<div class="entry-icon"></div>
+				</a>
+			    {% endfor %}
+			
+				<!-- Pagination -->
+				<div class="clearfix"></div>
+				<div class="row">
+					<div class="col-md-12">
+						<!-- Pagination -->
+						<div class="pagination-container margin-top-10 margin-bottom-20">
+							<nav class="pagination">
+								<ul>
+                                    {% if posts.pagination.prev %}
+                                    <li class="pagination-arrow"><a href="{{posts.pagination.prev.link}}" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
+                                    {% endif %}
+                                    {% for page in posts.pagination.pages %}
+									<li><a href="{{ page.link }}" class="{{page.class}}-page ripple-effect">{{ page.title }}</a></li>
+                                    {% endfor %}
+									{% if posts.pagination.next %}
+									<li class="pagination-arrow"><a href="{{posts.pagination.next.link}}" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                                    {% endif %}
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+				<!-- Pagination / End -->

@@ -24,8 +24,8 @@ if($post_type->post_type == 'post'){
         'post__not_in' => array($post_id),
         'post_status'  => 'publish',
     );
-
-    //get the current post
+    
+    //get the current post 
     $context['post']    = new Timber\Post();
     $context['related'] = Timber::get_posts($related);
     $context['latest']  = Timber::get_posts($latest);

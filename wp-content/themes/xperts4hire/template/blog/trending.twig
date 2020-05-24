@@ -1,0 +1,22 @@
+	<div class="sidebar-widget">
+
+						<h3>Trending Posts</h3>
+						<ul class="widget-tabs">
+                             {% for blog in blogs %}
+                                {% set trending = get_views(blog.id) %}
+                                    {# 1000 must be the trending views #}
+                                  {% if trending.total > 10 %}
+							<li>
+								<a href="{{ blog.link }}" class="widget-content active">
+									<img src="{{ blog.thumbnail.src }}" alt="{{ blog.post_title }}">
+									<div class="widget-text">
+										<h5>{{ blog.post_title }}</h5>
+										<span>{{ blog.date('F j Y') }}</span>
+									</div>
+								</a>
+							</li>
+                                 {% endif %}
+                            {% endfor %}
+						</ul>
+
+					</div>

@@ -32,6 +32,9 @@
 
 	//Registration setting
 	include( 'configure/register.php' );
+
+	//TWIG setting
+	include( 'configure/twig-setting.php' );
 		
 // function shapeSpace_popular_posts($post_id) {
 //     $count_key = 'popular_posts';
