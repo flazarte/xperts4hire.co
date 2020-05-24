@@ -1,39 +1,20 @@
 <div class="sidebar-widget">
 
-					<h3>Trending Posts</h3>
+					<h3>Latest Posts</h3>
 					<ul class="widget-tabs">
-
+                     {% for latest_post in latest %}
 						<!-- Post #1 -->
 						<li>
-							<a href="#" class="widget-content active">
-								<img src="images/blog-02a.jpg" alt="">
+							<a href="{{ latest_post.link }}" class="widget-content active">
+								<img src="{{ latest_post.thumbnail.src }}" alt="{{ latest_post.post_title }}">
 								<div class="widget-text">
-									<h5>How to "Woo" a Recruiter and Land Your Dream Job</h5>
-									<span>29 June 2019</span>
+									<h5>{{ latest_post.post_title }}</h5>
+									<span>{{ latest_post.date('F j Y') }}</span>
 								</div>
 							</a>
 						</li>
-
-						<!-- Post #2 -->
-						<li>
-							<a href="#" class="widget-content">
-								<img src="images/blog-07a.jpg" alt="">
-								<div class="widget-text">
-									<h5>What It Really Takes to Make $100k Before You Turn 30</h5>
-									<span>3 June 2019</span>
-								</div>
-							</a>
-						</li>
-						<!-- Post #3 -->
-						<li>
-							<a href="#" class="widget-content">
-								<img src="images/blog-04a.jpg" alt="">
-								<div class="widget-text">
-									<h5>5 Myths That Prevent Job Seekers from Overcoming Failure</h5>
-									<span>5 June 2019</span>
-								</div>
-							</a>
-						</li>
+                    {% endfor %}
+			
 					</ul>
 
 				</div>

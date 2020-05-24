@@ -1,12 +1,10 @@
+{% if post.terms('tags') %}
 <div class="sidebar-widget">
-					<h3>Tags</h3>
-					<div class="task-tags">
-						<a href="#"><span>employer</span></a>
-						<a href="#"><span>recruiting</span></a>
-						<a href="#"><span>work</span></a>
-						<a href="#"><span>salary</span></a>
-						<a href="#"><span>tips</span></a>
-						<a href="#"><span>income</span></a>
-						<a href="#"><span>application</span></a>
-					</div>
-				</div>
+	<h3>Tags</h3>
+		<div class="task-tags">
+        {% for term in post.terms('tags') %}
+			<a href="#"><span>{{term.name}}</span></a>
+        {% endfor %}
+		</div>
+</div>
+{% endif %}
