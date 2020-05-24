@@ -15,7 +15,7 @@ $blog_post = get_posts($args);
 				<!-- Section Headline -->
 				<div class="section-headline margin-top-0 margin-bottom-45">
 					<h3>From The Blog</h3>
-					<a href="pages-blog.html" class="headline-link">View Blog</a>
+					<a href="<?php echo home_url('blog');?>" class="headline-link">View Blog</a>
 				</div>
 
 				<div class="row">
@@ -28,7 +28,7 @@ $blog_post = get_posts($args);
                     
 					<!-- Blog Post Item -->
 					<div class="col-xl-4">
-						<a href="pages-blog-post.html" class="blog-compact-item-container">
+						<a href="<?php the_permalink($post->ID);?>" class="blog-compact-item-container">
 							<div class="blog-compact-item">
 								<img src="<?php echo $url_mage;?>" alt="<?php echo htmlspecialchars_decode($post->post_title);?>">
 								<span class="blog-item-tag"><?php echo htmlspecialchars_decode($category[0]->name); ?></span>

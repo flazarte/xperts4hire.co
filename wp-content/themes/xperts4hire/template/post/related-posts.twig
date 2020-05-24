@@ -1,0 +1,26 @@
+<div class="row">
+				
+				<!-- Headline -->
+				<div class="col-xl-12">
+					<h3 class="margin-top-40 margin-bottom-35">Related Posts</h3>
+				</div>
+                {% for related_post in related %}
+				<!-- Blog Post Item -->
+				<div class="col-xl-6">
+					<a href="{{ related_post.link }}" class="blog-compact-item-container">
+						<div class="blog-compact-item">
+							<img src="{{ related_post.thumbnail.src }}" alt="{{ related_post.post_title }}">
+							<span class="blog-item-tag">{{ related_post.category }}</span>
+							<div class="blog-compact-item-content">
+								<ul class="blog-post-tags">
+									<li>{{ related_post.date('F j Y') }}</li>
+								</ul>
+								<h3>{{ related_post.post_title }}</h3>
+								<p>{{ related_post.get_field('post-description') }}</p>
+							</div>
+						</div>
+					</a>
+				</div>
+				<!-- Blog post Item / End -->
+                {% endfor %}
+</div>        

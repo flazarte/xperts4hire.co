@@ -1,0 +1,118 @@
+<!-- Content
+================================================== -->
+<div id="titlebar" class="gradient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Blog</h2>
+				<span>Blog Post Page</span>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li><a href="{{ site.url }}">Home</a></li>
+						<li><a href="{{ function('home_url', 'blog') }}">Blog</a></li>
+						<li>{{ post.category }}</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Post Content -->
+<div class="container">
+	<div class="row">
+		
+		<!-- Inner Content -->
+		<div class="col-xl-8 col-lg-8">
+			<!-- Blog Post -->
+			<div class="blog-post single-post">
+
+				<!-- Blog Post Thumbnail -->
+				<div class="blog-post-thumbnail">
+					<div class="blog-post-thumbnail-inner">
+						<span class="blog-item-tag">{{ post.category }}</span>
+						<img src="{{ post.thumbnail.src }}" alt="{{ post.post_title }}">
+					</div>
+				</div>
+
+				<!-- Blog Post Content -->
+				<div class="blog-post-content">
+					<h3 class="margin-bottom-10">{{ post.post_title }}</h3>
+
+					<div class="blog-post-info-list margin-bottom-20">
+						<a href="#" class="blog-post-info">{{ post.date('F j Y') }}</a>
+						{# <a href="#"  class="blog-post-info">{{ post.comment_count }} Comments</a> #}
+					</div>
+
+                     <!-- Content -->
+                     {{ post.content }}
+                    <!-- End / Content -->
+			
+					<!-- Share Buttons -->
+					<div class="share-buttons margin-top-25">
+						<div class="share-buttons-trigger"><i class="icon-feather-share-2"></i></div>
+						<div class="share-buttons-content">
+							<span>Interesting? <strong>Share It!</strong></span>
+							<ul class="share-buttons-icons">
+								<li><a href="https://www.facebook.com/sharer/sharer.php?u={{ post.link }}" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
+								<li><a href="https://twitter.com/share?url={{ post.link }}" data-button-color="#1da1f2" title="Share on Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
+								<li><a href="whatsapp://send?text={{ post.link }}" data-button-color="#259a07" title="Share on WhatsApp" data-tippy-placement="top"><i class="icon-brand-whatsapp-square"></i></a></li>
+								<li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ post.link }}" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<!-- Blog Post Content / End -->
+			
+			<!-- Blog Nav -->
+			{# {% include 'template/post/next-previews-post.twig' %} #}
+			
+			<!-- Related Posts -->
+			{% include 'template/post/related-posts.twig' %}
+			<!-- Related Posts / End -->
+				
+
+			<!-- Comments -->
+			{# {% include 'template/post/comment.twig' %} #}
+			<!-- Leava a Comment / End -->
+
+		</div>
+		<!-- Inner Content / End -->
+
+
+		<div class="col-xl-4 col-lg-4 content-left-offset">
+			<div class="sidebar-container">
+				
+				<!-- Location -->
+				<div class="sidebar-widget margin-bottom-40">
+					<div class="input-with-icon">
+						<input id="autocomplete-input" type="text" placeholder="Search">
+						<i class="icon-material-outline-search"></i>
+					</div>
+				</div>
+
+				<!-- Widget -->
+				{% include 'template/post/trending.twig' %}
+				<!-- Widget / End-->
+
+
+				<!-- Widget -->
+				{# {% include 'template/post/socials.twig' %} #}
+
+				<!-- Widget -->
+				{% include 'template/post/tags.twig' %}
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<!-- Spacer -->
+<div class="padding-top-40"></div>
+<!-- Spacer -->
+

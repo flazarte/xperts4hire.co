@@ -27,7 +27,7 @@ $job_post = get_posts($args);
                         $job_posting_time = get_post_time('j F Y','true',$job->ID,'false');
                     ?>				
 					<!-- Job Listing -->
-					<a href="single-job-page.html" class="job-listing with-apply-button">
+					<a href="<?php the_permalink($job->ID);?>" class="job-listing with-apply-button">
 
 						<!-- Job Listing Details -->
 						<div class="job-listing-details">
