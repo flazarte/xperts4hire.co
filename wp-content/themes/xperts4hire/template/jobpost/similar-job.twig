@@ -1,0 +1,32 @@
+<!-- Job Listing -->
+                        {% for related in similar %}
+                            {% set location = function('sjb_get_the_job_location', related.id ) %}
+                            {% set job_type = function('sjb_get_the_job_type', related.id ) %}
+                            {% set company = get_employer(related.post_author) %}
+						<a href="{{  related.link }}" class="job-listing">
+                          
+							<!-- Job Listing Details -->
+							<div class="job-listing-details">
+								<!-- Logo -->
+								<div class="job-listing-company-logo">
+									<img src="{{ company.image_url }}" alt="{{ company.display_name }}">
+								</div>
+
+								<!-- Details -->
+								<div class="job-listing-description">
+									<h4 class="job-listing-company">{{ company.display_name }}</h4>
+									<h3 class="job-listing-title">{{ related.post_title }}</h3>
+								</div>
+							</div>
+
+							<!-- Job Listing Footer -->
+							<div class="job-listing-footer">
+								<ul>
+									<li><i class="icon-material-outline-location-on"></i>{{ location.0.name }}</li>
+									<li><i class="icon-material-outline-business-center"></i>{{ job_type.0.name }}</li>
+									<li><i class="icon-material-outline-account-balance-wallet"></i> ${{ related.get_field('job_package_rate') }}</li>
+									<li><i class="icon-material-outline-access-time"></i>{{ related.date('F j Y') }}</li>
+								</ul>
+							</div>
+						</a>
+                        {% endfor %}

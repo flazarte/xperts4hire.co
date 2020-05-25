@@ -43,3 +43,24 @@ function views_stats( $twig ) {
     return $twig;
 }
 add_filter( 'timber/twig', 'views_stats' );
+
+function get_employer($id){
+    $class    = new xperts4Hire();
+    $employer = json_decode($class->xperts_employers($id), true);
+
+return $employer;
+}
+
+/**
+ * My custom get employer in  Twig functionality.
+ *
+ * @param \Twig\Environment $twig
+ * @return \Twig\Environment
+ */
+function get_employer_data( $twig ) {
+
+    $twig->addFunction( new Timber\Twig_Function( 'get_employer', ' get_employer' ) );
+    
+    return $twig;
+}
+add_filter( 'timber/twig', 'get_employer_data' );
