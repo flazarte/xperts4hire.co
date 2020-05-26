@@ -1,0 +1,95 @@
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+		<div class="col-xl-3 col-lg-4">
+			<div class="sidebar-container">
+				{% include 'template/job_list/widget.twig' %}
+			</div>
+		</div>
+		<div class="col-xl-9 col-lg-8 content-left-offset">
+
+			<h3 class="page-title">Search Results</h3>
+
+			<div class="notify-box margin-top-15">
+				<div class="switch-container">
+					<label class="switch"><input type="checkbox"><span class="switch-button"></span><span class="switch-text">Turn on email alerts for this search</span></label>
+				</div>
+
+				<div class="sort-by">
+					<span>Sort by:</span>
+					<select class="selectpicker hide-tick">
+						<option>Relevance</option>
+						<option>Newest</option>
+						<option>Oldest</option>
+						<option>Random</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="listings-container grid-layout margin-top-35">
+               {% for job in job_list_2 %}
+                  {% set location = function('sjb_get_the_job_location', job.id ) %}
+                  {% set job_type = function('sjb_get_the_job_type', job.id ) %}
+                  {% set company = get_employer(job.post_author) %}
+				<!-- Job Listing -->
+				<a href="{{ job.link }}" class="job-listing">
+
+					<!-- Job Listing Details -->
+					<div class="job-listing-details">
+						<!-- Logo -->
+						<div class="job-listing-company-logo">
+                         <img src="{{ company.image_url }}" alt="{{ company.display_name }}">
+						</div>
+
+						<!-- Details -->
+						<div class="job-listing-description">
+							<h4 class="job-listing-company">{{ company.display_name }}
+                            {% if  company.status == 'approved' %}
+                            <span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span></h4>
+                            {% endif %}
+							<h3 class="job-listing-title">{{ job.post_title }}</h3>
+						</div>
+					</div>
+
+					<!-- Job Listing Footer -->
+					<div class="job-listing-footer">
+						<span class="bookmark-icon"></span>
+						<ul>
+							<li><i class="icon-material-outline-location-on"></i>{{ location.0.name }}</li>
+							<li><i class="icon-material-outline-business-center"></i>{{ job_type.0.name }}</li>
+							<li><i class="icon-material-outline-account-balance-wallet"></i> ${{ job.get_field('job_package_rate') }}</li>
+							<li><i class="icon-material-outline-access-time"></i>{{ job.date('F j Y') }}</li>
+						</ul>
+					</div>
+				</a>	
+                {% endfor %}
+			</div>
+
+			<!-- Pagination -->
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Pagination -->
+					<div class="pagination-container margin-top-30 margin-bottom-60">
+						<nav class="pagination">
+							<ul>
+                                {% if job_list_2.pagination.prev %}
+								<li class="pagination-arrow"><a href="{{ job_list_2.pagination.prev.link}}"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
+                                {% endif %}
+                                {% for page in job_list_2.pagination.pages %}
+								<li><a href="{{ page.link }}" class="{{page.class}}-page">{{page.name}}</a></li>
+                                {% endfor %}
+								{% if job_list_2.pagination.next %}
+								<li class="pagination-arrow"><a href="{{ job_list_2.pagination.next.link}}"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                                {% endif %}
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<!-- Pagination / End -->
+
+		</div>
+	</div>
+</div>

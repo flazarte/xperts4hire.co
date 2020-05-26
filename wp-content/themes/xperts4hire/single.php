@@ -45,7 +45,7 @@ if($post_type->post_type == 'post'){
 
     //current job post
     $context['jobpost']   = new Timber\Post();
-    $context['similar']   = Timber::get_posts($similar);
+    $context['similar']   = Timber::get_posts($similar); 
     $context['employer']  = json_decode($class->xperts_employers($context['jobpost']->post_author), true);
     Timber::render( 'template/jobpost/job-post.twig', $context );
     
