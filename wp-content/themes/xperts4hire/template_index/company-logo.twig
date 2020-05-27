@@ -1,0 +1,23 @@
+{% if companies|length > 5 %}
+<div class="section border-top padding-top-45 padding-bottom-45">
+	<!-- Logo Carousel -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				<!-- Carousel -->
+				<div class="col-md-12">
+					<div class="logo-carousel">
+					  {% for company in companies %}
+                        {%set logo = get_employer(company.ID) %}
+						<div class="carousel-item">
+							<a href="{{ logo.user_url }}" target="_blank" title="{{ logo.display_name }}"><img src="{{ logo.image_url }}" alt="{{ logo.display_name }}"></a>
+						</div>
+					   {% endfor %}					
+					</div>
+				</div>
+				<!-- Carousel / End -->
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}

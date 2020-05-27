@@ -64,3 +64,24 @@ function get_employer_data( $twig ) {
     return $twig;
 }
 add_filter( 'timber/twig', 'get_employer_data' );
+
+function get_employee($id){
+    $class    = new xperts4Hire();
+    $employee = json_decode($class->xperts_users($id), true);
+
+return $employee;
+}
+
+/**
+ * My custom get employee in  Twig functionality.
+ *
+ * @param \Twig\Environment $twig
+ * @return \Twig\Environment
+ */
+function get_employee_data( $twig ) {
+
+    $twig->addFunction( new Timber\Twig_Function( 'get_employee', ' get_employee' ) );
+    
+    return $twig;
+}
+add_filter( 'timber/twig', 'get_employee_data' );

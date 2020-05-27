@@ -1,0 +1,38 @@
+{% if home_blogs|length > 2 %}
+<div class="section padding-top-65 padding-bottom-50">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				
+				<!-- Section Headline -->
+				<div class="section-headline margin-top-0 margin-bottom-45">
+					<h3>From The Blog</h3>
+					<a href="{{ function('home_url', 'blog')}}" class="headline-link">View Blog</a>
+				</div>
+
+				<div class="row">
+                 {% for blog in home_blogs %}
+					<!-- Blog Post Item -->
+					<div class="col-xl-4">
+						<a href="{{ blog.link }}" class="blog-compact-item-container">
+							<div class="blog-compact-item">
+								<img src="{{ blog.thumbnail.src }}" alt="{{ blog.name }}">
+								<span class="blog-item-tag">{{ blog.category }}</span>
+								<div class="blog-compact-item-content">
+									<ul class="blog-post-tags">
+										<li>{{ blog.date('F j Y') }}</li>
+									</ul>
+									<h3>{{ blog.name }}</h3>
+									<p>{{ blog.get_field('post-description') }}</p>
+								</div>
+							</div>
+						</a>
+					</div>
+                {% endfor %}
+					<!-- Blog post Item / End -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}

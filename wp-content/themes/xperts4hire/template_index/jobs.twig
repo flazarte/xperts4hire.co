@@ -1,0 +1,59 @@
+{% if jobs %}
+<div class="section gray margin-top-45 padding-top-65 padding-bottom-75">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				
+				<!-- Section Headline -->
+				<div class="section-headline margin-top-0 margin-bottom-35">
+					<h3>Recently Post Jobs</h3>
+					<a href="{{ function('home_url', 'job-listing') }}" class="headline-link">Browse All Jobs</a>
+				</div>
+				
+				<!-- Jobs Container -->
+				<div class="listings-container compact-list-layout margin-top-35">
+                   {% for job in jobs %}
+                     {% set location = function('sjb_get_the_job_location', job.id ) %}
+                     {% set job_type = function('sjb_get_the_job_type', job.id ) %}
+                     {% set company = get_employer(job.post_author) %}	
+					<!-- Job Listing -->
+					<a href="{{ job.link }}" class="job-listing with-apply-button">
+
+						<!-- Job Listing Details -->
+						<div class="job-listing-details">
+
+							<!-- Logo -->
+							<div class="job-listing-company-logo">
+                                <img src="{{ company.image_url }}" alt="{{ company.display_name }}">
+							</div>
+
+							<!-- Details -->
+							<div class="job-listing-description">
+								<h3 class="job-listing-title">{{ job.post_title }}</h3>
+
+								<!-- Job Listing Footer -->
+								<div class="job-listing-footer">
+									<ul>
+										<li><i class="icon-material-outline-business"></i>{{ company.display_name }}
+                                        {% if  company.status == 'approved' %}
+                                        <div class="verified-badge" title="Verified Employer" data-tippy-placement="top"></div></li>
+                                        {% endif %}
+										<li><i class="icon-material-outline-location-on"></i>{{ location.0.name }}</li>
+										<li><i class="icon-material-outline-business-center"></i>{{ job_type.0.name }}</li>
+										<li><i class="icon-material-outline-access-time"></i>{{ job.date('F j Y') }}</li>
+									</ul>
+								</div>
+							</div>
+
+							<!-- Apply Button -->
+							<span class="list-apply-button ripple-effect">Apply Now</span>
+						</div>
+					</a>
+                    {% endfor %}	
+				</div>
+				<!-- Jobs Container / End -->
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
