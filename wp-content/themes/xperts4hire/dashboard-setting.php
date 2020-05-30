@@ -171,14 +171,14 @@ $user_data = json_decode($data , true);
 											<div class="keywords-container">
 												<div class="keyword-input-container">
 													<input type="text" class="keyword-input with-border" id="skills" placeholder="e.g. Angular, Laravel"/>
-													<button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+													<button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"  id="skills_button"></i></button>
 												</div>
 												<div class="keywords-list">
-													<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Angular</span></span>
-													<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Vue JS</span></span>
-													<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">iOS</span></span>
-													<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Android</span></span>
-													<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text">Laravel</span></span>
+												<?php if(!empty($user_data['skills'])){
+													foreach($user_data['skills'] as $skill){
+														echo '<span class="keyword"><span class="keyword-remove"></span><span class="keyword-text" data-value="'.$skill.'">'.ucfirst($skill).'</span></span>';
+													}
+												}?>	
 												</div>
 												<div class="clearfix"></div>
 											</div>
@@ -236,13 +236,13 @@ $user_data = json_decode($data , true);
 											</div>
 											<div class="clearfix"></div>
 											<!-- Upload Button -->
-											<form method="post" id="adduser" enctype='multipart/form-data'>
+											<!-- <form method="post" id="adduser" enctype='multipart/form-data'>
 											<div class="uploadButton margin-top-0">
 												<input class="uploadButton-input" type="file" accept="application/msword, application/pdf" name="recover" id="upload" single/>
 												<label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
 												<span class="uploadButton-file-name">Maximum file size: 10 MB</span>
 											</div>
-											</form>
+											</form> -->
 										</div>
 									</div>
 								</div>
@@ -299,21 +299,21 @@ $user_data = json_decode($data , true);
 								<div class="col-xl-4">
 									<div class="submit-field">
 										<h5>Current Password</h5>
-										<input type="password" class="with-border" id="c_password">
+										<input type="password" class="with-border" id="c_password" placeholder="Enter Current Password">
 									</div>
 								</div>
 
 								<div class="col-xl-4">
 									<div class="submit-field">
 										<h5>New Password</h5>
-										<input type="password" class="with-border" id="n_password">
+										<input type="password" class="with-border" id="n_password" placeholder="Enter New Password" required>
 									</div>
 								</div>
 
-								<div class="col-xl-4">
+								<div class="col-xl-4" >
 									<div class="submit-field">
 										<h5>Repeat New Password</h5>
-										<input type="password" class="with-border" id="r_password">
+										<input type="password" class="with-border" id="r_password" placeholder="Confirm Password" required>
 									</div>
 								</div>
 

@@ -1,8 +1,13 @@
 $('document').ready(function() {
     var email_state = false;
     var username_state = false;
+    var skills = new Array();
+    $('#n_password').prop('readonly', true);
+    $('#r_password').prop('readonly', true);
+    $('#user_email').prop('readonly', true);
 
     $('#update_account').on('click', function() {
+        
         var profile_name = $('#p_name').val();
         var last_name    = $('#p_last').val();
         var rate         = $('#rate').val();
@@ -11,13 +16,37 @@ $('document').ready(function() {
         var description  = $('#description').val();
         var cover_letter = $('#upload').val();
         var resume       = $('#resumeUpload').val();
-        var skills       = $('#skills').val();
         var password     = $('#n_password').val();
-        var user_id      = $('#employer-radio').val();    
+        var con_p        = $('#r_password').val();
+        var user_id      = $('#employer-radio').val(); 
+        var button       = $('#update_account');
+        var new_cover    = cover_letter.replace("C:\\fakepath\\", "");
+     
+        if( (password.length > 0) ||  (con_p.length > 0) ){
+       
+        if(password == ''){
+            confirm("Please enter new password!");
+            event.preventDefault(); die();
+        }
 
+        if(con_p == ''){
+            confirm("Please enter confirm password!");
+            event.preventDefault(); die();
+        }
+
+        if(con_p !== password){
+            confirm("Confirm password doesn't match with new password!");
+            event.preventDefault(); die();
+        }
+    }
+        
+        //get the skills tags
+        $('.keyword-text').each(function() {
+            skills.push($(this).text());
+        });   
+        
         $.ajax({
             url: xperts_register.ajaxurl,
-            type: 'post',
             data: {
                 'action'        : 'update_account',
                 'update_account': true,
@@ -28,15 +57,21 @@ $('document').ready(function() {
                 'position'      : position,
                 'country'       : country,
                 'description'   : description,
-                'cover_letter'  : cover_letter,
+                'cover_letter'  : new_cover,
                 'resume'        : resume,
                 'skills'        : skills,
+                'password'      : password,
                 'address'       : '',
                 'city'          : '',
                 'postalcode'    : '',
             },
+            type: 'post',
+            beforeSend: function(xhr) {
+                button.text('Saving...');
+            },
             success: function(data) {
                 if (data == 'success') {
+                    button.text('Saved');
                     var r = confirm("Successfully updated!");
                     if (r == true){
                     window.location.reload();
@@ -65,11 +100,13 @@ $('document').ready(function() {
                     username_state = false;
                     $('#user_name').parent().removeClass();
                     $('#user_name').parent().addClass("input-with-icon-left form_error");
+                    $('#user_email').prop('readonly', true);
                     $('#login_Register').prop('disabled', true);
                 } else if (data == 'not_taken') {
                     username_state = true;
                     $('#user_name').parent().removeClass();
                     $('#user_name').parent().addClass("input-with-icon-left form_success");
+                    $('#user_email').prop('readonly', false);
                     $('#login_Register').prop('disabled', false);
                 }
             }
@@ -106,8 +143,18 @@ $('document').ready(function() {
     });
 
     $('#freelance_Register').click(function() {
+        var button  = $(this);
         var email = $('#user_email').val();
         var username = $('#user_name').val();
+        if( username == ''){
+             confirm("Please enter Username!");
+            event.preventDefault(); die();
+        }
+
+        if( email == ''){
+             confirm("Please enter Email!");
+            event.preventDefault(); die();
+        }
         $.ajax({
             url: xperts_register.ajaxurl,
             type: 'post',
@@ -117,8 +164,19 @@ $('document').ready(function() {
                 'email': email,
                 'register': true,
             },
+            beforeSend: function(xhr) {
+                button.text('Processing...');
+            },
             success: function(data) {
-                alert(data);
+                 if (data == 'success') {
+                    button.text('Saved');
+                    var r = confirm("Successfully Registered! Check your Email for confirmation.");
+                    if (r == true){
+                    window.location.reload();
+                    }
+                } else{
+                    alert('Failed! Please try again.');
+                }
             }
         });
     });
@@ -150,7 +208,6 @@ $('document').ready(function() {
                 'company_email': company_email,
             },
             success: function(data) {
-                console.log(data);
                 if (data == 'taken') {
                     email_state = false;
                     $('#companyEmail').parent().removeClass();
@@ -167,4 +224,43 @@ $('document').ready(function() {
             }
         });
     });
+
+    //set password validation
+    $('#c_password').bind('keyup change', function() {
+        var c_password = $(this).val();
+        if (c_password == '') {
+            return;
+        }
+        $.ajax({
+            url: xperts_register.ajaxurl,
+            type: 'post',
+            data: {
+                'action'     : 'password_check',
+                'check_pass' : true,
+                'password'   : c_password,
+            },
+            success: function(data) {
+                if (data == 'true') {
+                    $('#n_password').prop('readonly', false);
+                    $('#r_password').prop('readonly', false);
+                } else if (data == 'false') {
+                    $('#n_password').prop('readonly', true);
+                    $('#r_password').prop('readonly', true);
+                }
+            }
+        });
+    });
+
+     $('#r_password').bind('keyup', function() {
+         var confirm_pass  =  $(this).val();
+         var new_pass      =  $('#n_password').val();
+          if (new_pass == '') {
+             $('#update_account').prop('disabled', true);
+          }
+          if(confirm_pass !== new_pass){
+              $('#update_account').prop('disabled', true);
+          }else{
+              $('#update_account').prop('disabled', false);
+          }
+     });
 });

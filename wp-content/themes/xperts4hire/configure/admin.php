@@ -4,6 +4,7 @@ class xperts4Hire{
 
     public function xperts_users($id){
         $result     = [];
+        $skills     = [];
         $user_data  = get_userdata( $id );
         $data_user  = get_user_meta( $id );
         $position   = (!empty($data_user['user-position'][0])) ? $data_user['user-position'][0] : '';
@@ -12,6 +13,7 @@ class xperts4Hire{
         $rate       = (!empty($data_user['hourly_rate'][0])) ? $data_user['hourly_rate'][0] : 0;
         $resume     = (!empty($data_user['resume__cv'][0])) ? $data_user['resume__cv'][0] : '';
         $cover      = (!empty($data_user['cover_letter'][0])) ? $data_user['cover_letter'][0] : '';
+        $skills     =  (!empty($data_user['_skills'][0])) ? unserialize($data_user['_skills'][0]) : '';
         $user_page  = get_author_posts_url($id);
         $country    = user_country();
             foreach($country as $key => $name){
@@ -38,8 +40,9 @@ class xperts4Hire{
             'first_name'    => $data_user['first_name'][0],
             'last_name'     => $data_user['last_name'][0],
             'email'         => $user_data->data->user_email,
+            'skills'        => $skills,
         ]);
-
+ 
     return $result;
     }
 
@@ -1016,7 +1019,7 @@ function update_account(){
         }
 
         if(!empty( $_POST['skills'] )){
-            //update_user_meta( $_POST['user_id'], 'rate', $_POST['rate'] );
+            update_user_meta($_POST['user_id'], '_skills', $_POST['skills']);
         }
 
         if(!empty( $_POST['address'] )){
@@ -1031,7 +1034,11 @@ function update_account(){
             update_user_meta( $_POST['user_id'], 'postalcode', $_POST['postalcode'] );;
         }
 
-     echo  'success';
+        if(!empty( $_POST['password'] )){
+            wp_set_password($_POST['password'],  $_POST['user_id']);
+        }
+
+    echo  'success';
     }
     die();
 }
@@ -1303,3 +1310,22 @@ function custom_paginate_links( $args = '' ) {
 
 	return $r;
 }
+
+function password_check(){
+    //real itme validation for password with jquery
+    if (isset($_POST['check_pass'])) {
+        $result = '';
+        $password = $_POST['password'];  
+        $user = wp_get_current_user();
+        $x = wp_check_password( $password, $user->user_pass, $user->data->ID );                 
+            if ($x) {
+                $result =  "true";	
+            }else{
+                $result =  "false";
+            }
+        echo $result;
+    }
+    die();
+}
+add_action( 'wp_ajax_nopriv_password_check', 'password_check' );
+add_action( 'wp_ajax_password_check', 'password_check' );
