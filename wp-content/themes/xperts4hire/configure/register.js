@@ -20,7 +20,6 @@ $('document').ready(function() {
         var con_p        = $('#r_password').val();
         var user_id      = $('#employer-radio').val(); 
         var button       = $('#update_account');
-        var new_cover    = cover_letter.replace("C:\\fakepath\\", "");
      
         if( (password.length > 0) ||  (con_p.length > 0) ){
        
@@ -57,7 +56,7 @@ $('document').ready(function() {
                 'position'      : position,
                 'country'       : country,
                 'description'   : description,
-                'cover_letter'  : new_cover,
+                'cover_letter'  : cover_letter,
                 'resume'        : resume,
                 'skills'        : skills,
                 'password'      : password,
@@ -319,8 +318,7 @@ $('document').ready(function() {
                     }
                 } else{
                     alert('Failed! Please try again.');
-                }
-                
+                }             
             }
         });
 

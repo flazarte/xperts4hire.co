@@ -1172,7 +1172,7 @@ function custom_paginate_links( $args = '' ) {
 
 function password_check(){
     //real itme validation for password with jquery
-    if (isset($_POST['add_note'])) {
+    if (isset($_POST['check_pass'])) {
         $result = '';
         $password = $_POST['password'];  
         $user = wp_get_current_user();
