@@ -83,7 +83,7 @@ $('#snackbar-user-status label').click(function() {
 				backgroundColor: 'rgba(42,65,232,0.08)',
 				borderColor: '#2a41e8',
 				borderWidth: "3",
-				data: [196,132,215,362,210,252],
+				data: [0,0,0,0,0,0],
 				pointRadius: 5,
 				pointHoverRadius:5,
 				pointHitRadius: 10,

@@ -146,6 +146,9 @@ $('document').ready(function() {
         var button  = $(this);
         var email = $('#user_email').val();
         var username = $('#user_name').val();
+        var pass_1 = $('#password-register').val();
+        var pass_2 = $('#password-repeat-register').val();
+
         if( username == ''){
              confirm("Please enter Username!");
             event.preventDefault(); die();
@@ -155,13 +158,29 @@ $('document').ready(function() {
              confirm("Please enter Email!");
             event.preventDefault(); die();
         }
+
+        if( pass_1 == ''){
+             confirm("Please enter Password!");
+            event.preventDefault(); die();
+        }
+
+        if( pass_2 == ''){
+             confirm("Please Confirm Password!");
+            event.preventDefault(); die();
+        }
+
+        if( pass_2 !== pass_1){
+             confirm("Confirm password doesn't match with password!");
+            event.preventDefault(); die();
+        }
         $.ajax({
             url: xperts_register.ajaxurl,
             type: 'post',
             data: {
-                'action': 'freelance_register',
+                'action'  : 'freelance_register',
                 'username': username,
-                'email': email,
+                'email'   : email,
+                'password':pass_1,
                 'register': true,
             },
             beforeSend: function(xhr) {

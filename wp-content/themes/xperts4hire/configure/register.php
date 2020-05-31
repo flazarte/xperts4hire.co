@@ -115,8 +115,9 @@ function freelance_register(){
     if(isset($_POST['register']) ){
 		$username= sanitize_user($_POST['username']);
 		$email= sanitize_email($_POST['email']);
+		$pass= $_POST['password'];
 		$error=array();
-		$user_id = wp_create_user( $username, $random_password, $email );
+		$user_id = wp_create_user( $username, $pass, $email );
         $user_id_role = new WP_User($user_id);
 		$user_id_role->set_role('employee');
 		wp_new_user_notification($user_id);

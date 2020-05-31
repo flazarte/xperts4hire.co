@@ -30,12 +30,13 @@ Text Domain:
 
 
 /*form control */
+/* enable when employer need for registration page */
 
-#register-account-form,
+/* #register-account-form,
 #freelance_Register,
 #Employer_Register {
     display: none;
-}
+} */
 
 
 /*Styling for errors on form*/

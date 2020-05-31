@@ -40,8 +40,8 @@
 							<ul class="dropdown-nav">
 								<li><a href="#">Browse Jobs</a>
 									<ul class="dropdown-nav">
-										<li><a href="<?php echo home_url('job-list-map');?>">Search + Map</a></li>
-										<li><a href="<?php echo home_url('job-listing');?>">Search List</a></li>
+										<!-- <li><a href="<?php //echo home_url('job-list-map');?>">Search + Map</a></li> -->
+										<!-- <li><a href="<?php //echo home_url('job-listing');?>">Search List</a></li> -->
 									</ul>
 								</li>
 								<!-- <li><a href="#">Browse Tasks</a>
@@ -63,7 +63,7 @@
 							<ul class="dropdown-nav">
 								<li><a href="#">Find a Freelancer</a>
 									<ul class="dropdown-nav">
-										<li><a href="<?php echo home_url('freelancer-profile');?>">List of Freelancers</a></li>
+										<!-- <li><a href="<?php //echo home_url('freelancer-profile');?>">List of Freelancers</a></li> -->
 									</ul>
 								</li>
 								<!-- <li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>

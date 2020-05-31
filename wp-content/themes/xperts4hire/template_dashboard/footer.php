@@ -3,7 +3,7 @@
 				<div class="small-footer-copyrights">
 					© 2020 <strong>Xperts4Hire</strong>. All Rights Reserved.
 				</div>
-				<ul class="footer-social-links">
+				<!-- <ul class="footer-social-links">
 					<li>
 						<a href="#" title="Facebook" data-tippy-placement="top">
 							<i class="icon-brand-facebook-f"></i>
@@ -24,6 +24,6 @@
 							<i class="icon-brand-linkedin-in"></i>
 						</a>
 					</li>
-				</ul>
+				</ul> -->
 				<div class="clearfix"></div>
 			</div>

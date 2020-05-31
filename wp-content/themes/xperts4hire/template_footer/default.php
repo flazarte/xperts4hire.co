@@ -28,7 +28,7 @@
 							<div class="footer-row">
 								<div class="footer-row-inner">
 									<ul class="footer-social-links">
-										<li>
+										<!-- <li>
 											<a href="#" title="Facebook" data-tippy-placement="bottom" data-tippy-theme="light">
 												<i class="icon-brand-facebook-f"></i>
 											</a>
@@ -47,7 +47,7 @@
 											<a href="#" title="LinkedIn" data-tippy-placement="bottom" data-tippy-theme="light">
 												<i class="icon-brand-linkedin-in"></i>
 											</a>
-										</li>
+										</li> -->
 									</ul>
 									<div class="clearfix"></div>
 								</div>
@@ -58,9 +58,9 @@
 								<div class="footer-row-inner">
 									<select class="selectpicker language-switcher" data-selected-text-format="count" data-size="5">
 										<option selected>English</option>
-										<option>Français</option>
+										<!-- <option>Français</option>
 										<option>Español</option>
-										<option>Deutsch</option>
+										<option>Deutsch</option> -->
 									</select>
 								</div>
 							</div>
@@ -86,8 +86,8 @@
 						<ul>
 							<li><a href="<?php echo home_url('job-listing');?>"><span>Browse Jobs</span></a></li>
 							<li><a href="<?php echo home_url('dashboard-setting');?>"><span>Add Resume</span></a></li>
-							<li><a href="#"><span>Job Alerts</span></a></li>
-							<li><a href="#"><span>My Bookmarks</span></a></li>
+							<!-- <li><a href="#"><span>Job Alerts</span></a></li>
+							<li><a href="#"><span>My Bookmarks</span></a></li> -->
 						</ul>
 					</div>
 				</div>
@@ -111,8 +111,8 @@
 						<h3>Helpful Links</h3>
 						<ul>
 							<li><a href="<?php echo home_url('contact');?>"><span>Contact</span></a></li>
-							<li><a href="#"><span>Privacy Policy</span></a></li>
-							<li><a href="#"><span>Terms of Use</span></a></li>
+							<!-- <li><a href="#"><span>Privacy Policy</span></a></li>
+							<li><a href="#"><span>Terms of Use</span></a></li> -->
 						</ul>
 					</div>
 				</div>
@@ -138,7 +138,7 @@
 					<h3><i class="icon-feather-mail"></i> Sign Up For a Newsletter</h3>
 					<p>Weekly breaking news, analysis and cutting edge advices on job searching.</p>
 					<form action="#" method="get" class="newsletter">
-						<input type="text" name="fname" placeholder="Enter your email address">
+						<input type="text" name="fname" placeholder="Enter your email address" readonly>
 						<button type="submit"><i class="icon-feather-arrow-right"></i></button>
 					</form>
 				</div>
