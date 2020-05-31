@@ -127,39 +127,20 @@ $user_data = json_decode($data , true);
 						</div>	
 
 						<div class="content with-padding">
+						<?php  $notes = select_notes(); if($notes): 
+							foreach ($notes as $note):?>
 							<!-- Note -->
 							<div class="dashboard-note">
-								<p>Meeting with candidate at 3pm who applied for Bilingual Event Support Specialist</p>
+								<p><?php echo $note['note_description'];?></p>
 								<div class="note-footer">
-									<span class="note-priority high">High Priority</span>
+									<?php echo notes_priority($note['user_priority']);?>
 									<div class="note-buttons">
-										<a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-										<a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+										<!-- <a href="#" title="Edit"  data-id="<?php //echo $note['id'];?>" id="edit-note"><i class="icon-feather-edit"></i></a>
+										<a href="#" title="Remove" data-id="<?php //echo $note['id'];?>" id="delete-note"><i class="icon-feather-trash-2"></i></a> -->
 									</div>
 								</div>
 							</div>
-							<!-- Note -->
-							<div class="dashboard-note">
-								<p>Extend premium plan for next month</p>
-								<div class="note-footer">
-									<span class="note-priority low">Low Priority</span>
-									<div class="note-buttons">
-										<a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-										<a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-									</div>
-								</div>
-							</div>
-							<!-- Note -->
-							<div class="dashboard-note">
-								<p>Send payment to David Peterson</p>
-								<div class="note-footer">
-									<span class="note-priority medium">Medium Priority</span>
-									<div class="note-buttons">
-										<a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-										<a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-									</div>
-								</div>
-							</div>
+						<?php endforeach;endif; ?>
 						</div>
 							<div class="add-note-button">
 								<a href="#small-dialog" class="popup-with-zoom-anim button full-width button-sliding-icon">Add Note <i class="icon-material-outline-arrow-right-alt"></i></a>
@@ -187,5 +168,49 @@ $user_data = json_decode($data , true);
 
 </div>
 <!-- Wrapper / End -->
+<!-- Apply for a job popup
+================================================== -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab">Add Note</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+				
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Do Not Forget 😎</h3>
+				</div>
+					
+				<!-- Form -->
+				<form method="post" id="add-note">
+
+					<select class="selectpicker with-border default margin-bottom-20" data-size="7" id="priority" required>
+					    <option value="">Select</option>
+						<option value="low-priority">Low Priority</option>
+						<option value="medium-priority">Medium Priority</option>
+						<option value="high-priority">High Priority</option>
+					</select>
+
+					<textarea name="textarea" cols="10" placeholder="Note" class="with-border" id="note-desc"></textarea>
+
+				</form>
+				
+				<!-- Button -->
+				<button class="button full-width button-sliding-icon ripple-effect" type="button" form="add-note" id="add-notes">Add Note <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- Apply for a job popup / End -->
 <?php
 get_footer();

@@ -282,4 +282,47 @@ $('document').ready(function() {
               $('#update_account').prop('disabled', false);
           }
      });
+
+     //delete note
+      $("#add-notes").click(function() {
+         var priority = $('#priority').children("option:selected").val();
+         var description = $('#note-desc').val();
+         var button  = $(this);
+         if(priority == ''){
+              confirm("Please select priority level!");
+            event.preventDefault(); die();
+         }
+
+         if(description == ''){
+              confirm("Description notbe empty!");
+            event.preventDefault(); die();
+         }
+
+          $.ajax({
+            url: xperts_register.ajaxurl,
+            type: 'post',
+            data: {
+                'action'     : 'add_user_notes',
+                'add_note'   : true,
+                'priority'   : priority,
+                'description': description
+            },
+            beforeSend: function(xhr) {
+                button.text('Adding...');
+            },
+            success: function(data) {
+                  if (data == 'true') {
+                    button.text('Added');
+                    var r = confirm("Successfully Added!");
+                    if (r == true){
+                    window.location.reload();
+                    }
+                } else{
+                    alert('Failed! Please try again.');
+                }
+                
+            }
+        });
+
+    });
 });

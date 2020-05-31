@@ -35,6 +35,9 @@
 
 	//TWIG setting
 	include( 'configure/twig-setting.php' );
+
+	//custom db update
+	include( 'configure/db.php' );
 		
 // function shapeSpace_popular_posts($post_id) {
 //     $count_key = 'popular_posts';
