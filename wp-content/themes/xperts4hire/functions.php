@@ -162,10 +162,8 @@ if (isset($_POST['Employment_history'])) {
 			if ($sqlInsertimageintodb == true) {
 			echo '<script type="text/javascript">					
 			confirm("Employment History Added!");
-			var frm = document.getElementsById("history_form");	
 			if ( window.history.replaceState ) {
 				window.history.replaceState( null, null, window.location.href );
-				frm.reset();
 			}								
 			</script>';
 			} else {
