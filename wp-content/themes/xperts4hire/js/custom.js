@@ -1099,43 +1099,23 @@ $(document).ready(function(){
     /*----------------------------------------------------*/
 
 	var coverUploadButton = {
-		$button    : $('.uploadButton-input'),
-		$nameField : $('.uploadButton-file-name')
+		$button1    : $('#cover_letter'),
+		$nameField1 : $('#cover_field')
 	};
 
-	coverUploadButton.$button.on('change',function() {
+	coverUploadButton.$button1.on('change',function() {
 		_populateFileField($(this));
 	});
 
 	function _populateFileField($button) {
-		var selectedFile = [];
-	    for (var i = 0; i < $button.get(0).files.length; ++i) {
-	        selectedFile.push($button.get(0).files[i].name +'<br>');
+		var selectedFile1 = [];
+	    for (var i = 0; i < $button1.get(0).files.length; ++i) {
+	        selectedFile1.push($button1.get(0).files[i].name +'<br>');
 	    }
-	    coverUploadButton.$nameField.html(selectedFile);
+	    coverUploadButton.$nameField1.html(selectedFile1);
 	}
 
-	/*----------------------------------------------------*/
-    /*  Resume Button
-    /*----------------------------------------------------*/
-
-	// var resumeUploadButton = {
-	// 	$button    : $('uploadButton-input'),
-	// 	$nameField : $('uploadButton-file-name')
-	// };
-
-	// resumeUploadButton.$button.on('change',function() {
-	// 	_populateFileField($(this));
-	// });
-
-	// function _populateFileField($button) {
-	// 	var selectedFile = [];
-	//     for (var i = 0; i < $button.get(0).files.length; ++i) {
-	//         selectedFile.push($button.get(0).files[i].name +'<br>');
-	//     }
-	// resumeUploadButton.$nameField.html(selectedFile);
-	// }
-
+	
   	/*----------------------------------------------------*/
     /*  Slick Carousel
     /*----------------------------------------------------*/

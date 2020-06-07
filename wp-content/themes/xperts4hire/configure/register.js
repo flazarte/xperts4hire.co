@@ -337,4 +337,46 @@ $('document').ready(function() {
               } 
         }); 
 
+        //submit profile upload
+        document.getElementById("user_pic").onchange = function() {
+            document.getElementById("p_image").submit();
+        };
+          
+        $('#cover_button').click(function() { 
+            //submit cover letter upload
+            document.getElementById("cover_letter").onchange = function() {
+                document.getElementById("c_cover").submit();
+            };
+        }); 
+
+        $('#resume_button').click(function() { 
+            //submit resume upload
+            document.getElementById("resume").onchange = function() {
+                console.log('resume');
+                document.getElementById("c_resume").submit();
+            };
+        }); 
+
+    /*----------------------------------------------------*/
+    /*  Resume Button
+    /*----------------------------------------------------*/
+
+	var resumeUploadButton = {
+		$button2    : $('#resume'),
+		$nameField2 : $('#resume_field')
+	};
+
+	resumeUploadButton.$button2.on('change',function() {
+		_populateFileField($(this));
+	});
+
+	function _populateFileField($button) {
+		var selectedFile2 = [];
+	    for (var i = 0; i < $button2.get(0).files.length; ++i) {
+	        selectedFile2.push($button2.get(0).files[i].name +'<br>');
+	    }
+	resumeUploadButton.$nameField2.html(selectedFile2);
+	}
+
+
 });

@@ -7,8 +7,9 @@ class xperts4Hire{
         $skills     = [];
         $user_data  = get_userdata( $id );
         $data_user  = get_user_meta( $id );
+        $root       = get_stylesheet_directory_uri().'/images/user-avatar-placeholder.png';
         $position   = (!empty($data_user['user-position'][0])) ? $data_user['user-position'][0] : '';
-        $url        = esc_url( get_avatar_url( $id ) );
+        $url        = (!empty($data_user['wp_user_avatar'])) ? wp_get_attachment_image_src($data_user['wp_user_avatar'][0], '', 'false')[0] : $root;
         $flags      = (!empty($data_user['country'][0])) ? $data_user['country'][0] : 'ph';
         $rate       = (!empty($data_user['hourly_rate'][0])) ? $data_user['hourly_rate'][0] : 0;
         $resume     = (!empty($data_user['resume__cv'][0])) ? $data_user['resume__cv'][0] : '';
@@ -911,40 +912,13 @@ function per_user_upload_dir( $original ){
     if ( is_user_logged_in() ) {
         $current_user = wp_get_current_user();
         $subdir = $current_user->user_login;
-        $modified['subdir'] = $subdir;
-        $modified['url'] = $original['baseurl'] . '/' . $subdir;
+        $modified['subdir'] = $subdir; 
+        $modified['url'] = site_url(). '/uploads/'. $subdir;
         $modified['path'] = $original['basedir'] . DIRECTORY_SEPARATOR . $subdir;
     }
     return $modified;
 }
 add_filter( 'upload_dir', 'per_user_upload_dir');
-
-function my_upload_function( $file, $post_id = 0 , $set_as_featured = false ) {
-    
-    $wp_filetype = wp_check_filetype( basename( $file ), null );
-   
-    $wp_upload_dir = wp_upload_dir();
-
-    $attachment = array(
-        'guid' => $file,
-        'post_mime_type' => $wp_filetype['type'],
-        'post_title' => preg_replace('/\.[^.]+$/', '', basename( $file )),
-        'post_content' => '',
-        'post_status' => 'inherit'
-    );
-    $fileName  = $wp_upload_dir['url'].'/'.basename( $file );
-    $attach_id = wp_insert_attachment( $attachment, $fileName, $post_id );
-
-    require_once(ABSPATH . 'wp-admin/includes/image.php');
-
-    $attach_data = wp_generate_attachment_metadata( $attach_id, $file );
-    wp_update_attachment_metadata( $attach_id, $attach_data );
-
-    if( $set_as_featured == true ) {
-        update_post_meta( $post_id, '_thumbnail_id', $attach_id );
-    }
-return $attach_id;
-}
 
 //custom redirect
 add_action('wp_logout','ps_redirect_after_logout');

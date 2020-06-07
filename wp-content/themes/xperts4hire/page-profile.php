@@ -21,7 +21,7 @@ $user_data = json_decode($data , true);
 						<div class="header-details">
 							<h3><?php echo $user_data['display_name']; ?><span><?php echo $user_data['position']; ?></span></h3>
 							<ul>
-								<li><div class="star-rating" data-rating="5.0"></div></li>
+								<!-- <li><div class="star-rating" data-rating="5.0"></div></li> -->
 								<li><img class="flag" src="<?php echo bloginfo('stylesheet_directory').$user_data['flag_url'];?>" alt="<?php echo $user_data['country_name'];?>"><?php echo $user_data['country_name'];?></li>
                                 <?php
                                   $status =  ($user_data['status'] == 'approved') ? TRUE : FALSE;
@@ -186,10 +186,10 @@ $user_data = json_decode($data , true);
 						<div class="share-buttons-content">
 							<span>Interesting? <strong>Share It!</strong></span>
 							<ul class="share-buttons-icons">
-								<li><a href="#" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
-								<li><a href="#" data-button-color="#1da1f2" title="Share on Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
-								<li><a href="#" data-button-color="#dd4b39" title="Share on Google Plus" data-tippy-placement="top"><i class="icon-brand-google-plus-g"></i></a></li>
-								<li><a href="#" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
+							<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo  $user_data['user_url'];?>" data-button-color="#3b5998" title="Share on Facebook" data-tippy-placement="top"><i class="icon-brand-facebook-f"></i></a></li>
+								<li><a href="https://twitter.com/share?url=<?php echo  $user_data['user_url'];?>" data-button-color="#1da1f2" title="Share on Twitter" data-tippy-placement="top"><i class="icon-brand-twitter"></i></a></li>
+								<li><a href="whatsapp://send?text=<?php echo  $user_data['user_url'];?>" data-button-color="#259a07" title="Share on WhatsApp" data-tippy-placement="top"><i class="icon-brand-whatsapp-square"></i></a></li>
+								<li><a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo  $user_data['user_url'];?>" data-button-color="#0077b5" title="Share on LinkedIn" data-tippy-placement="top"><i class="icon-brand-linkedin-in"></i></a></li>
 							</ul>
 						</div>
 					</div>

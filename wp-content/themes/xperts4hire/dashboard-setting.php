@@ -73,12 +73,14 @@ $user_data = json_decode($data , true);
 							<div class="row">
 
 								<div class="col-auto">
+								 <form action="" method="post" id="p_image" enctype="multipart/form-data">
 									<div class="avatar-wrapper" data-tippy-placement="bottom" title="Change Avatar">
 										<!-- <img class="profile-pic" src="images/user-avatar-placeholder.png" alt="" /> -->
 										<img class="profile-pic" src="<?php echo $user_data['image_url'];?>" alt="<?php echo $user_data['display_name'];?>" />
 										<div class="upload-button"></div>
-										<input class="file-upload" type="file" accept="image/*"/>
-									</div>
+										<input class="file-upload" name="user_pic" id="user_pic" type="file" accept="image/*"/ >
+									</div>		 
+								 </form>									
 								</div>
 
 								<div class="col">
@@ -204,11 +206,13 @@ $user_data = json_decode($data , true);
 												   </div>';
 												}else{
 												?>
-												<div class="uploadButton margin-top-0">
-													<input class="uploadButton-input cover" type="file" accept="application/msword, application/pdf" id="upload" single/>
-													<label class="uploadButton-button ripple-effect" for="upload">Upload Cover Letter</label>
-													<span class="uploadButton-file-name cover" id="cover">Maximum file size: 10 MB</span>
+												<form action="" method="post" id="c_cover" enctype="multipart/form-data">
+												<div class="uploadButton margin-top-0">						
+													<input class="uploadButton-input" name="cover_letter" id="cover_letter" type="file" accept="application/msword, application/pdf"  single/>
+													<label class="uploadButton-button ripple-effect" id="cover_button" for="cover_letter">Upload Cover Letter</label>
+													<span class="uploadButton-file-name" id="cover_field">Maximum file size: 10 MB</span>		
 												</div>
+												</form>
 												<?php
 												}
 												
@@ -218,32 +222,23 @@ $user_data = json_decode($data , true);
 													$url_info = pathinfo($url_resume);
 													echo '
 													<div class="attachment-box ripple-effect">
-													<span>Contract</span>
+													<span>Resume/CV</span>
 													<i>'.strtoupper($url_info['extension']).'</i>
 													<button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
 												    </div>';
 												}else{
 												?>
-												<!-- <div class="uploadButton margin-top-0">
-													<input class="uploadButton-input resume" type="file" accept="image/*, application/pdf" id="upload" single/>
-													<label class="uploadButton-button ripple-effect" for="upload">Upload Resume/CV</label>
-													<span class="uploadButton-file-name resume" id="resume">Maximum file size: 10 MB</span>
-											    </div> -->
+												<form action="" method="post" id="c_resume" enctype="multipart/form-data">
+													<div class="uploadButton margin-top-0">
+														<input class="uploadButton-input" type="file"  name="resume" id="resume"  accept="application/msword, application/pdf"single/>
+														<label class="uploadButton-button ripple-effect" id="resume_button" for="resume">Upload Resume/CV</label>
+														<span class="uploadButton-file-name" id="resume_field">Maximum file size: 10 MB</span>
+													</div>
+												</form>
 												<?php
 												}		
-											   ?>
-																
+											   ?>																
 											</div>
-											<div class="clearfix"></div>
-											<!-- Upload Button -->
-											<!-- <form method="post" id="adduser" enctype='multipart/form-data'>
-											<div class="uploadButton margin-top-0">
-												<input class="uploadButton-input" type="file" accept="application/msword, application/pdf" name="recover" id="upload" single/>
-												<label class="uploadButton-button ripple-effect" for="upload">Upload Files</label>
-												<span class="uploadButton-file-name">Maximum file size: 10 MB</span>
-											</div>
-											</form> -->
-										</div>
 									</div>
 								</div>
 							</li>

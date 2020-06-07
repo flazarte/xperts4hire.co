@@ -175,4 +175,89 @@ if (isset($_POST['Employment_history'])) {
 			';
 		}
 	}
+unset($POST);
+}
+
+//upload user profile image
+if (isset($_FILES['user_pic'])) {
+	my_upload_avatar($_FILES['user_pic']);
+	echo '
+	<script type="text/javascript">					
+		confirm("Profile Picture Updated!");
+		if ( window.history.replaceState ) {
+			window.history.replaceState( null, null, window.location.href );
+		}								
+	</script>';
+unset($POST);
+}
+   
+function my_upload_avatar($avatar_url) {
+	$user_id = get_current_user_id();
+	$upload = wp_upload_bits( $avatar_url['name'], null, file_get_contents( $avatar_url['tmp_name'] ) );
+    $wp_filetype = wp_check_filetype( basename( $upload['file'] ), null );
+    $wp_upload_dir = wp_upload_dir();
+    $attachment = array(
+        'guid' => $wp_upload_dir['url'] . _wp_relative_upload_path( $upload['file'] ),
+        'post_mime_type' => $wp_filetype['type'],
+        'post_title' => preg_replace('/\.[^.]+$/', '', basename( $upload['file'] )),
+        'post_content'   => '',
+        'post_status'    => 'inherit'
+    );
+    $attach_id = wp_insert_attachment( $attachment, $upload['file']);
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    $attach_data = wp_generate_attachment_metadata( $attach_id, $upload['file'] );
+    wp_update_attachment_metadata( $attach_id, $attach_data );
+    update_user_meta($user_id, "wp_user_avatar", $attach_id);
+}
+
+//upload documents
+function my_upload_function( $file ) {
+    $upload = wp_upload_bits( $file['name'], null, file_get_contents( $file['tmp_name'] ) );
+    $wp_filetype = wp_check_filetype( basename( $upload['file'] ), null );  
+    $wp_upload_dir = wp_upload_dir();
+
+    $attachment = array(
+        'guid' => $wp_upload_dir['url'] . _wp_relative_upload_path( $upload['file'] ),
+        'post_mime_type' => $wp_filetype['type'],
+        'post_title' => preg_replace('/\.[^.]+$/', '', basename( $upload['file'] )),
+        'post_content' => '',
+        'post_status' => 'inherit'
+    );
+   
+	$attach_id = wp_insert_attachment( $attachment, $upload['file']);
+    require_once(ABSPATH . 'wp-admin/includes/image.php');
+    $attach_data = wp_generate_attachment_metadata( $attach_id, $upload['file'] );
+    wp_update_attachment_metadata( $attach_id, $attach_data );
+
+return $attach_id;
+}
+
+//upload user cover letter
+if (isset($_FILES['cover_letter'])) {
+	$user_id = get_current_user_id();
+	$id = my_upload_function($_FILES['cover_letter']);
+	update_user_meta( $user_id, 'cover_letter', $id);
+	echo '
+	<script type="text/javascript">					
+		confirm("Cover Letter Updated!");
+		if ( window.history.replaceState ) {
+			window.history.replaceState( null, null, window.location.href );
+		}								
+	</script>';
+unset($POST);
+}
+
+//upload user resume
+if (isset($_FILES['resume'])) {
+	$user_id = get_current_user_id();
+	$id = my_upload_function($_FILES['resume']);
+	update_user_meta( $user_id, 'resume__cv', $id);
+	echo '
+	<script type="text/javascript">					
+		confirm("Resume Updated!");
+		if ( window.history.replaceState ) {
+			window.history.replaceState( null, null, window.location.href );
+		}								
+	</script>';
+unset($POST);
 }
