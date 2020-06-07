@@ -99,3 +99,80 @@ function add_user_notes(){
 add_action( 'wp_ajax_nopriv_add_user_notes', 'add_user_notes' );
 add_action( 'wp_ajax_add_user_notes', 'add_user_notes' );
 
+/**
+ * Create user employment history table if not exist
+ */
+ $table_history = $wpdb->base_prefix.'users_employment_history';
+ $user_history_table = $wpdb->get_var("SHOW TABLES LIKE '$table_history'");
+ if ( ! $user_history_table == $table_history ) {
+     $sql = "CREATE TABLE `{$table_history }` (
+         id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+         user_id bigint(20) UNSIGNED NOT NULL,
+         position varchar(191) NOT NULL,
+         company varchar(191) NOT NULL,
+         image_name varchar(100) NOT NULL,
+         company_image  longblob NOT NULL,
+         job_description varchar(191) NOT NULL,
+         start_date date NOT NULL,
+         end_date date,
+         PRIMARY KEY  (id)
+       ) $charset_collate;";
+       
+       require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+       dbDelta($sql);
+ }
+
+ /**
+ * Insert user employment history data if not exist
+ */
+function add_employment($company, $position, $image_name, $company_image, $job_description, $start_date, $end_date=null){
+    global $wpdb;
+    $user_id = get_current_user_id();
+    $sql = $wpdb->insert("{$wpdb->base_prefix}users_employment_history", [
+        'user_id' => $user_id,
+        'position' => $position,
+        'company' => $company,
+        'image_name' => $image_name,
+        'company_image' => $company_image,
+        'job_description' => $job_description,
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+    ]);
+   
+    if( $sql ){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+
+/**
+ * Select work history table with value
+ */
+ function select_work_history(){
+    global $wpdb;
+    $user_id = get_current_user_id();
+    $sql = $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}users_employment_history WHERE user_id = $user_id" , ARRAY_A);
+   
+    if( $sql ){
+        return $sql;
+    }else{
+        return FALSE;
+    }
+}
+
+
+/**
+ * Select work history table in page profile
+ */
+ function select_work_history_user($user_id){
+    global $wpdb;
+    $sql = $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}users_employment_history WHERE user_id = $user_id" , ARRAY_A);
+   
+    if( $sql ){
+        return $sql;
+    }else{
+        return FALSE;
+    }
+}

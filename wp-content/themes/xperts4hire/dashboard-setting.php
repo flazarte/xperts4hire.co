@@ -285,6 +285,61 @@ $user_data = json_decode($data , true);
 					</div>
 				</div>
 
+				<!-- employment history -->
+				<div class="col-xl-12">
+					<div id="employment" class="dashboard-box">
+                        <!-- Headline -->
+						<div class="headline" id="employment">
+						<h3><i class="icon-material-outline-business"></i> Employment History</h3> 				
+						</div>
+						
+	                     <!-- start history -->
+						 <ul class="fields-ul">
+						 <?php $work_history = select_work_history();
+						    if(!empty($work_history)) :
+							  if(count($work_history) > 0 ) :
+							  foreach($work_history as $history) : 
+							  $end_date = ( strtotime($history['end_date']) > 0) ?  date('j F Y', strtotime($history['end_date'])) : 'Present';		 		
+							  ?>
+					<li>
+						<div class="boxed-list-item">
+							<!-- Avatar -->
+							<div class="item-image">
+								<img src=<?php echo 'data:image;base64,'.$history["company_image"].'' ?> alt="<?php echo  $history['company'];?>">
+							</div>
+							
+							<!-- Content -->
+							<div class="item-content">
+								<h4><?php echo strtoupper(htmlspecialchars_decode($history['position']));?></h4>
+								<div class="item-details margin-top-7">
+									<div class="detail-item"><a href="#"><i class="icon-material-outline-business"></i><?php echo strtoupper(htmlspecialchars_decode($history['company']));?></a></div>
+									<div class="detail-item"><i class="icon-material-outline-date-range"></i><?php echo date('j F Y', strtotime($history['start_date']));?> - <?php echo $end_date;?></div>
+								</div>
+								<div class="item-description">
+									<p><?php echo  htmlspecialchars_decode($history['job_description']);?></p>
+								</div>
+							</div>
+						</div>
+					</li>
+							  <?php endforeach;endif; endif;?>
+
+					<!-- add new history -->
+					<li>
+					<div class="boxed-list-item">
+					<a href="#small-dialog" class="button ripple-effect popup-with-zoom-anim  button-sliding-icon">Add Employment <i class="icon-material-outline-add"></i></a>
+					</div>
+					</li>					
+					<!-- end of add button -->
+				</ul>
+						 <!-- end of history -->
+
+
+
+
+					</div>
+				</div>
+				<!-- end of employment history -->
+
 				<!-- Dashboard Box -->
 				<div class="col-xl-12">
 					<div id="test1" class="dashboard-box">
@@ -347,5 +402,117 @@ $user_data = json_decode($data , true);
 
 </div>
 <!-- Wrapper / End -->
+<!-- employment pop up -->
+<div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab">Add History</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+				
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Add Your Employment Work History</h3>
+				</div>
+					
+				<!-- Form -->
+				<form  action="" method="post" enctype="multipart/form-data" id="history_form">
+
+					<div class="input-with-icon-left">
+						<i class="icon-material-outline-business-center"></i>
+						<input type="text" class="input-text with-border" name="company_position" id="company_position" placeholder="Position" required/>
+					</div>
+
+					<div class="input-with-icon-left">
+						<i class="icon-material-outline-business"></i>
+						<input type="text" class="input-text with-border" name="company" id="company" placeholder="company" required/>
+					</div>
+
+					<!-- Start date -->
+					<div>
+						<label for="Start Date">Start Date:</label>
+						<div class="input-with-icon-left">					   
+							<i class="icon-material-outline-date-range"></i>
+							<input type="date" class="input-text with-border" name="start_date" id="start_date" placeholder="Start Date" required/>
+						</div>
+					</div>
+					
+                    	<!-- End date -->
+					<div id="end_date_form">
+						<label for="Start Date">End Date:</label>
+						<div class="input-with-icon-left">
+							<i class="icon-material-outline-date-range"></i>
+							<input type="date" class="input-text with-border" value="" name="end_date" id="end_date" placeholder="End Date" required/>
+						</div>
+					</div>
+
+					<!-- present working -->
+					<div class="checkbox">
+						<input type="checkbox" id="present" name="present">
+						<label for="present"><span class="checkbox-icon"></span>Currently Working?</label>
+			       </div>
+
+					<textarea  cols="10" placeholder="Job Description Summary" name="job_description" id="job_description" class="with-border" required></textarea>
+
+					<div class="uploadButton margin-top-25">
+						<input class="uploadButton-input" name="history_company" type="file" accept="image/*" id="upload" single required/>
+						<label class="uploadButton-button ripple-effect" name="submit" for="upload">Upload Company Image</label>
+						<span class="uploadButton-file-name">Allowed file types: png, jpg <br> Max. files size: 50 MB.</span>
+					</div>
+                 	<!-- Button -->
+				<button class="button margin-top-35 full-width button-sliding-icon" type="submit" name="Employment_history" id="Employment_history">Add History<i class="icon-material-outline-arrow-right-alt"></i></button>
+				</form>
+				
+			
+		
+			</div>
+			<!-- Login -->
+			<!-- <div class="popup-tab-content" id="loginn"> -->
+				
+				<!-- Welcome Text -->
+				<!-- <div class="welcome-text">
+					<h3>Discuss Your Project With Tom</h3>
+				</div> -->
+					
+				<!-- Form -->
+				<!-- <form method="post" id="make-an-offer-form">
+
+					<div class="input-with-icon-left">
+						<i class="icon-material-outline-account-circle"></i>
+						<input type="text" class="input-text with-border" name="name2" id="name2" placeholder="First and Last Name" required/>
+					</div>
+
+					<div class="input-with-icon-left">
+						<i class="icon-material-baseline-mail-outline"></i>
+						<input type="text" class="input-text with-border" name="emailaddress2" id="emailaddress2" placeholder="Email Address" required/>
+					</div>
+
+					<textarea name="textarea" cols="10" placeholder="Message" class="with-border"></textarea>
+
+					<div class="uploadButton margin-top-25">
+						<input class="uploadButton-input" type="file" accept="image/*, application/pdf" id="upload-cv" multiple/>
+						<label class="uploadButton-button" for="upload-cv">Add Attachments</label>
+						<span class="uploadButton-file-name">Allowed file types: zip, pdf, png, jpg <br> Max. files size: 50 MB.</span>
+					</div>
+
+				</form> -->
+				
+				<!-- Button -->
+				<!-- <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="make-an-offer-form">Make an Offer <i class="icon-material-outline-arrow-right-alt"></i></button> -->
+
+			<!-- </div> -->
+
+		</div>
+	</div>
+</div>
+<!-- Make an Offer Popup / End -->
+<!-- end of employment -->
 <?php
 get_footer();

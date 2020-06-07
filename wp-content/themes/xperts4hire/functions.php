@@ -129,3 +129,52 @@
 //   return 'User-agent: *
 //   Disallow: /';
 // }
+
+
+//upload work employment history
+if (isset($_POST['Employment_history'])) {
+	if (getimagesize($_FILES['history_company']['tmp_name']) == false) {
+	echo '
+	<script type="text/javascript">
+	confirm("Please Select An Image!");
+	event.preventDefault(); die();
+	</script>
+	';
+	} else {
+		$image = $_FILES['history_company'];
+		$file_type = array(
+			 'image/jpeg',
+			 'image/png',
+		);
+		if(!in_array( $image['type'], $file_type )){
+			$message = "File type is not supported!";
+			echo "<script type='text/javascript'>confirm('$message');
+			event.preventDefault(); die();
+			</script>";
+			die;
+		}
+			//declare variables
+			$end_date = (!empty($_POST['end_date'])) ? $_POST['end_date'] : '';
+			$image = $_FILES['history_company']['tmp_name'];
+			$name = $_FILES['history_company']['name'];
+			$image = base64_encode(file_get_contents(addslashes($image)));
+			$sqlInsertimageintodb = add_employment($_POST['company'], $_POST['company_position'], $name, $image, $_POST['job_description'], $_POST['start_date'], $end_date);
+			if ($sqlInsertimageintodb == true) {
+			echo '<script type="text/javascript">					
+			confirm("Employment History Added!");
+			var frm = document.getElementsById("history_form");	
+			if ( window.history.replaceState ) {
+				window.history.replaceState( null, null, window.location.href );
+				frm.reset();
+			}								
+			</script>';
+			} else {
+			echo '
+			<script type="text/javascript">
+			confirm("Failed, Please try again!");
+			event.preventDefault(); die();
+			</script>
+			';
+		}
+	}
+}

@@ -58,7 +58,7 @@ $user_data = json_decode($data , true);
 			<!-- Boxed List / End -->
 			
 			<!-- Boxed List -->
-			<?php //get_template_part('template_dashboard/box-list-2');?>
+			<?php get_template_part('template_dashboard/box-list-2');?>
 			<!-- Boxed List / End -->
 
 		</div>

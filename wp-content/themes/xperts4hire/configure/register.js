@@ -321,6 +321,20 @@ $('document').ready(function() {
                 }             
             }
         });
-
+    
     });
+
+    
+        //hide end date when present is checked
+        $('input[name="present"]').click(function() { 
+            if ($(this).is( 
+                ":checked")) { 
+                    $('#end_date_form').hide();
+                    $('#end_date').prop('required', false);
+              } else { 
+                    $('#end_date_form').show(); 
+                    $('#end_date').prop('required', true);
+              } 
+        }); 
+
 });
