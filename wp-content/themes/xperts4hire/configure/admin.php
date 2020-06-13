@@ -1162,3 +1162,22 @@ function password_check(){
 }
 add_action( 'wp_ajax_nopriv_password_check', 'password_check' );
 add_action( 'wp_ajax_password_check', 'password_check' );
+
+//delete cover letter
+function delete_cover(){
+    
+    if (isset($_POST['delete_cover'])) {
+        $result = '';
+        $id = $_POST['id'];
+        $remove = wp_delete_attachment($id, true);  
+        if($remove){
+            $result = 'true';
+        }else{
+            $result = 'false';
+        }
+    echo $result;
+    }
+    die();
+}
+add_action( 'wp_ajax_nopriv_delete_cover', 'delete_cover' );
+add_action( 'wp_ajax_delete_cover', 'delete_cover' );

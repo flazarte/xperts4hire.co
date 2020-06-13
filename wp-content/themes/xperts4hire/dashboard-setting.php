@@ -197,47 +197,52 @@ $user_data = json_decode($data , true);
 											   //cover letter
 												if(!empty($user_data['cover_letter'])){
 													$url_cover = wp_get_attachment_url($user_data['cover_letter']);
-													$cover_info = pathinfo($url_cover); 
-													echo '
-													<div class="attachment-box ripple-effect">
-													<span>Cover Letter</span>
-													<i>'.strtoupper($cover_info['extension']).'</i>
-													<button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
-												   </div>';
-												}else{
-												?>
-												<form action="" method="post" id="c_cover" enctype="multipart/form-data">
-												<div class="uploadButton margin-top-0">						
-													<input class="uploadButton-input" name="cover_letter" id="cover_letter" type="file" accept="application/msword, application/pdf"  single/>
-													<label class="uploadButton-button ripple-effect" id="cover_button" for="cover_letter">Upload Cover Letter</label>
-													<span class="uploadButton-file-name" id="cover_field">Maximum file size: 10 MB</span>		
-												</div>
-												</form>
+													if($url_cover){
+														$cover_info = pathinfo($url_cover); 
+														echo '
+														<div class="attachment-box ripple-effect">
+														<span>Cover Letter</span>
+														<i>'.strtoupper($cover_info['extension']).'</i>
+														<button class="remove-attachment" data-tippy-placement="top" data-value="'.$user_data['cover_letter'].'" id="remove_cover" title="Remove"></button>
+													</div>';
+
+													}else{
+														?>
+														<form action="" method="post" id="c_cover" enctype="multipart/form-data">
+														<div class="uploadButton margin-top-0">						
+															<input class="uploadButton-input" name="cover_letter" id="cover_letter" type="file" accept="application/msword, application/pdf"  single/>
+															<label class="uploadButton-button ripple-effect" id="cover_button" for="cover_letter">Upload Cover Letter</label>
+															<span class="uploadButton-file-name" id="cover_field">Maximum file size: 10 MB</span>		
+														</div>
+														</form>
 												<?php
-												}
+												} }
+												
 												
 												//resume / cv
 												if(!empty($user_data['resume_cv'])){
 													$url_resume = wp_get_attachment_url($user_data['resume_cv']);
 													$url_info = pathinfo($url_resume);
-													echo '
-													<div class="attachment-box ripple-effect">
-													<span>Resume/CV</span>
-													<i>'.strtoupper($url_info['extension']).'</i>
-													<button class="remove-attachment" data-tippy-placement="top" title="Remove"></button>
-												    </div>';
-												}else{
-												?>
-												<form action="" method="post" id="c_resume" enctype="multipart/form-data">
-													<div class="uploadButton margin-top-0">
-														<input class="uploadButton-input" type="file"  name="resume" id="resume"  accept="application/msword, application/pdf"single/>
-														<label class="uploadButton-button ripple-effect" id="resume_button" for="resume">Upload Resume/CV</label>
-														<span class="uploadButton-file-name" id="resume_field">Maximum file size: 10 MB</span>
-													</div>
-												</form>
-												<?php
-												}		
-											   ?>																
+													if($url_resume){
+														echo '
+														<div class="attachment-box ripple-effect">
+														<span>Resume/CV</span>
+														<i>'.strtoupper($url_info['extension']).'</i>
+														<button class="remove-attachment" data-tippy-placement="top" data-value="'.$user_data['resume_cv'].'" id="remove_resume" title="Remove"></button>
+														</div>';
+													}else{
+														?>
+														<form action="" method="post" id="c_resume" enctype="multipart/form-data">
+														<div class="uploadButton margin-top-0">
+															<input class="uploadButton-input" type="file"  name="resume" id="resume"  accept="application/msword, application/pdf"single/>
+															<label class="uploadButton-button ripple-effect" id="resume_button" for="resume">Upload Resume/CV</label>
+															<span class="uploadButton-file-name" id="resume_field">Maximum file size: 10 MB</span>
+														</div>
+													</form>
+														<?php
+													}
+												}
+													?>																																																							
 											</div>
 									</div>
 								</div>
@@ -306,6 +311,10 @@ $user_data = json_decode($data , true);
 							<!-- Content -->
 							<div class="item-content">
 								<h4><?php echo strtoupper(htmlspecialchars_decode($history['position']));?></h4>
+								<span>
+									<a href="#" class="button gray ripple-effect ico" data-tippy-placement="top" data-value="<?php echo $history['id'];?>" id="edit_history" data-original-title="Edit"><i class="icon-feather-edit"></i></a>
+									<a href="#" class="button gray ripple-effect ico" data-tippy-placement="top" data-value="<?php echo $history['id'];?>" id="remove_history"data-original-title="Remove"><i class="icon-feather-trash-2"></i></a>
+								</span>
 								<div class="item-details margin-top-7">
 									<div class="detail-item"><a href="#"><i class="icon-material-outline-business"></i><?php echo strtoupper(htmlspecialchars_decode($history['company']));?></a></div>
 									<div class="detail-item"><i class="icon-material-outline-date-range"></i><?php echo date('j F Y', strtotime($history['start_date']));?> - <?php echo $end_date;?></div>
